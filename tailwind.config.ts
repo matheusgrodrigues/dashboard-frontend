@@ -4,14 +4,14 @@ const config: Config = {
    corePlugins: {
       preflight: false,
    },
-   important: true,
    content: [
       "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
       "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
       "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
    ],
    darkMode: "selector",
-
+   prefix: "tw-",
+   important: true,
    theme: {
       extend: {
          screens: {
