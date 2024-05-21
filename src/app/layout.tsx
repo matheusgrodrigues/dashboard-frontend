@@ -22,7 +22,7 @@ export default function RootLayout({
    return (
       <html lang="pt-BR">
          <body className={inter.className}>
-            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+            <AppRouterCacheProvider options={{ enableCssLayer: false }}>
                <CssBaseline />
                <ThemeProvider theme={{}}>{children}</ThemeProvider>
             </AppRouterCacheProvider>
