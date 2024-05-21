@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import "./globals.css";
@@ -22,6 +23,7 @@ export default function RootLayout({
       <html lang="pt-BR">
          <body className={inter.className}>
             <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+               <CssBaseline />
                <ThemeProvider theme={{}}>{children}</ThemeProvider>
             </AppRouterCacheProvider>
          </body>
