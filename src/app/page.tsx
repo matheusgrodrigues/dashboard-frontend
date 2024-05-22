@@ -1,9 +1,14 @@
 "use client";
 
-import { TextField, Button, Stack, Paper, Grid } from "@mui/material";
+import { TextField, Button, Stack, Grid } from "@mui/material";
 import { BeakerIcon, SunIcon } from "@heroicons/react/16/solid";
 
 import useThemeToggle from "@/core/hooks/useThemeToggle";
+
+import Field from "../components/Field";
+import Form from "../components/Form";
+
+import formLoginRules from "./rules";
 
 export default function Home() {
    const { toggleTheme } = useThemeToggle();
@@ -25,18 +30,21 @@ export default function Home() {
             lg={4}
          >
             <Stack padding={4} gap={4}>
-               <Button variant="contained" onClick={toggleTheme}>
-                  ToggleTheme
+               <Button className="w-max text-slate-600" onClick={toggleTheme}>
+                  <SunIcon width={32} />
                </Button>
-               <BeakerIcon className="text-blue-600 mx-auto" width={64} />
 
-               <TextField label="Username" />
+               <BeakerIcon className="text-blue-600 dark:text-slate-600 mx-auto" width={64} />
 
-               <TextField label="Password" />
-
-               <Button className="p-4 hover:bg-opacity-90 dark:bg-slate-600" variant="contained">
-                  Submit
-               </Button>
+               <Form validationSchema={formLoginRules} onSubmit={() => null}>
+                  <Stack gap={4}>
+                     <Field name="email" render={<TextField name="email" label="E-mail" />} />
+                     <Field name="password" render={<TextField name="password" label="Password" />} />
+                     <Button className="p-4 hover:bg-opacity-90 dark:bg-slate-600" variant="contained" type="submit">
+                        Submit
+                     </Button>
+                  </Stack>
+               </Form>
             </Stack>
          </Grid>
       </Grid>
