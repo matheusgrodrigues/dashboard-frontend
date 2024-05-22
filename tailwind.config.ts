@@ -10,7 +10,6 @@ const config: Config = {
       "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
    ],
    darkMode: "selector",
-   prefix: "tw-",
    important: true,
    theme: {
       extend: {

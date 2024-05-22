@@ -1,16 +1,21 @@
 "use client";
 
-import { TextField, Button, Stack, Paper, Grid } from "@mui/material";
+import { TextField, Button, Stack, Grid } from "@mui/material";
 import { BeakerIcon, SunIcon } from "@heroicons/react/16/solid";
 
 import useThemeToggle from "@/core/hooks/useThemeToggle";
+
+import Field from "../components/Field";
+import Form from "../components/Form";
+
+import formLoginRules from "./rules";
 
 export default function Home() {
    const { toggleTheme } = useThemeToggle();
 
    return (
       <Grid
-         className="tw-bg-gradient-to-r tw-from-indigo-500 tw-from-10% tw-via-sky-500 tw-via-30% tw-to-emerald-500 tw-to-90%"
+         className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
          justifyContent={"center"}
          alignItems={"center"}
          minHeight={"100vh"}
@@ -18,25 +23,28 @@ export default function Home() {
          container
       >
          <Grid
-            className="tw-rounded-sm tw-border tw-border-stroke tw-bg-white tw-shadow-default tw-dark:border-strokedark tw-dark:bg-boxdark"
+            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
             xs={11}
             sm={8}
             md={6}
             lg={4}
          >
             <Stack padding={4} gap={4}>
-               <Button variant="contained" onClick={toggleTheme}>
-                  ToggleTheme
+               <Button className="w-max text-slate-600" onClick={toggleTheme}>
+                  <SunIcon width={32} />
                </Button>
-               <BeakerIcon className="tw-text-blue-600 tw-mx-auto" width={64} />
 
-               <TextField label="Username" />
+               <BeakerIcon className="text-blue-600 dark:text-slate-600 mx-auto" width={64} />
 
-               <TextField label="Password" />
-
-               <Button className="tw-p-4 tw-hover:bg-opacity-90 tw-bg-blue-600" variant="contained">
-                  Submit
-               </Button>
+               <Form validationSchema={formLoginRules} onSubmit={() => null}>
+                  <Stack gap={4}>
+                     <Field name="email" render={<TextField name="email" label="E-mail" />} />
+                     <Field name="password" render={<TextField name="password" label="Password" />} />
+                     <Button className="p-4 hover:bg-opacity-90 dark:bg-slate-600" variant="contained" type="submit">
+                        Submit
+                     </Button>
+                  </Stack>
+               </Form>
             </Stack>
          </Grid>
       </Grid>
