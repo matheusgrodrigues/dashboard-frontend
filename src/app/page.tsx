@@ -1,17 +1,19 @@
 "use client";
 
-import { TextField, Button, Stack, Grid } from "@mui/material";
-import { BeakerIcon, SunIcon } from "@heroicons/react/16/solid";
+import React from "react";
 
-import useThemeToggle from "@/core/hooks/useThemeToggle";
+import { TextField, Button, Stack, Grid } from "@mui/material";
+import { LockClosedIcon } from "@heroicons/react/16/solid";
 
 import Field from "../components/Field";
-import Form from "../components/Form";
+import Form, { FieldValues } from "../components/Form";
 
 import formLoginRules from "./rules";
 
 export default function Home() {
-   const { toggleTheme } = useThemeToggle();
+   const handleSubmit = (data: FieldValues) => {
+      console.log("submit", data);
+   };
 
    return (
       <Grid
@@ -19,29 +21,36 @@ export default function Home() {
          justifyContent={"center"}
          alignItems={"center"}
          minHeight={"100vh"}
-         display={"flex"}
          container
+         display={"flex"}
       >
          <Grid
             className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+            item
             xs={11}
             sm={8}
             md={6}
             lg={4}
          >
             <Stack padding={4} gap={4}>
-               <Button className="w-max text-slate-600" onClick={toggleTheme}>
-                  <SunIcon width={32} />
-               </Button>
+               <LockClosedIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-               <BeakerIcon className="text-blue-600 dark:text-slate-600 mx-auto" width={64} />
-
-               <Form validationSchema={formLoginRules} onSubmit={() => null}>
+               <Form validationSchema={formLoginRules} onSubmit={handleSubmit}>
                   <Stack gap={4}>
-                     <Field name="email" render={<TextField name="email" label="E-mail" />} />
-                     <Field name="password" render={<TextField name="password" label="Password" />} />
-                     <Button className="p-4 hover:bg-opacity-90 dark:bg-slate-600" variant="contained" type="submit">
-                        Submit
+                     <Field render={<TextField data-testid="email" name="email" label="E-mail" />} name="email" />
+
+                     <Field
+                        render={<TextField data-testid="password" name="password" label="Password" />}
+                        name="password"
+                     />
+
+                     <Button
+                        data-testid="submit"
+                        className="font-bold p-4 hover:bg-opacity-90 dark:bg-slate-600"
+                        variant="contained"
+                        type="submit"
+                     >
+                        Entrar
                      </Button>
                   </Stack>
                </Form>

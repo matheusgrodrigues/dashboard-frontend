@@ -1,12 +1,12 @@
 import * as yup from "yup";
 
+import regex from "../core/utils/regex";
+
 yup.setLocale({
    mixed: {
       required: "${path} é um campo obrigatório.",
    },
 });
-
-import regex from "@/core/utils/regex";
 
 const formLoginRules = yup.object({
    password: yup.string().required(),
