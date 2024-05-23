@@ -2,16 +2,22 @@
 
 import React from "react";
 
+import { useRouter } from "next/navigation";
+
 import { TextField, Button, Stack, Grid } from "@mui/material";
 import { LockClosedIcon } from "@heroicons/react/16/solid";
 
-import Field from "../core/components/Field";
-import Form, { FieldValues } from "../core/components/Form";
+import Field from "./components/Field";
+import Form, { FieldValues } from "./components/Form";
 
 import formLoginRules from "./rules";
 
 export default function Home() {
+   const router = useRouter();
+
    const handleSubmit = (data: FieldValues) => {
+      router.push("/dashboard/overview");
+
       console.log("submit", data);
    };
 
