@@ -5,8 +5,8 @@ import React from "react";
 import { TextField, Button, Stack, Grid } from "@mui/material";
 import { LockClosedIcon } from "@heroicons/react/16/solid";
 
-import Field from "../components/Field";
-import Form, { FieldValues } from "../components/Form";
+import Field from "../core/components/Field";
+import Form, { FieldValues } from "../core/components/Form";
 
 import formLoginRules from "./rules";
 
