@@ -46,11 +46,11 @@ export default function Home() {
 
                      <Button
                         data-testid="submit"
-                        className="p-4 hover:bg-opacity-90 dark:bg-slate-600"
+                        className="font-bold p-4 hover:bg-opacity-90 dark:bg-slate-600"
                         variant="contained"
                         type="submit"
                      >
-                        Submit
+                        Entrar
                      </Button>
                   </Stack>
                </Form>
