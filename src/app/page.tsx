@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { TextField, Button, Stack, Grid } from "@mui/material";
 import { LockClosedIcon } from "@heroicons/react/16/solid";
 
-import Field from "./components/Field";
-import Form, { FieldValues } from "./components/Form";
+import BaseField from "./components/BaseField";
+import BaseForm, { FieldValues } from "./components/BaseForm";
 
 import formLoginRules from "./rules";
 
@@ -36,19 +36,20 @@ export default function Home() {
             xs={11}
             sm={8}
             md={6}
-            lg={4}
+            lg={3}
          >
             <Stack padding={4} gap={4}>
                <LockClosedIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-               <Form validationSchema={formLoginRules} onSubmit={handleSubmit}>
+               <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                   <Stack gap={4}>
-                     <Field render={<TextField data-testid="email" name="email" label="E-mail" />} name="email" />
+                     <BaseField name="email">
+                        <TextField data-testid="email" label="E-mail" />
+                     </BaseField>
 
-                     <Field
-                        render={<TextField data-testid="password" name="password" label="Password" />}
-                        name="password"
-                     />
+                     <BaseField name="password">
+                        <TextField data-testid="password" label="Password" />
+                     </BaseField>
 
                      <Button
                         data-testid="submit"
@@ -59,7 +60,7 @@ export default function Home() {
                         Entrar
                      </Button>
                   </Stack>
-               </Form>
+               </BaseForm>
             </Stack>
          </Grid>
       </Grid>

@@ -2,16 +2,20 @@
 
 import { useRouter } from "next/navigation";
 
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+
+import BaseLayout from "@/app/components/BaseLayout";
 
 export default function Overview() {
    const router = useRouter();
 
    return (
-      <>
-         <h1>Overview</h1>
+      <BaseLayout>
+         <Typography>Overview</Typography>
 
-         <Button onClick={() => router.push("/")}>Voltar</Button>
-      </>
+         <Button variant="contained" onClick={() => router.push("/")}>
+            Sair
+         </Button>
+      </BaseLayout>
    );
 }
