@@ -1,186 +1,97 @@
 "use client";
 
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
-   AppBar,
-   AppBarProps as MuiAppBarProps,
-   Box,
-   CSSObject,
-   Divider,
-   Drawer,
-   IconButton,
-   List,
-   ListItem,
    ListItemButton,
    ListItemIcon,
    ListItemText,
-   Stack,
-   Theme,
-   Toolbar,
+   ListItem,
+   List,
    Typography,
-   styled,
-   useTheme,
+   IconButton,
+   Divider,
+   Toolbar,
+   AppBar,
+   Button,
+   Drawer,
+   Stack,
+   Box,
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import { ChevronLeftIcon, ChevronRightIcon, InboxIcon } from "@heroicons/react/16/solid";
-import { useState } from "react";
+import {
+   ChatBubbleBottomCenterIcon,
+   ChevronDoubleLeftIcon,
+   Bars3BottomLeftIcon,
+   BuildingLibraryIcon,
+   UserCircleIcon,
+   ChartBarIcon,
+   SunIcon,
+} from "@heroicons/react/16/solid";
 
-const drawerWidth = 240;
-
-const openedMixin = (theme: Theme): CSSObject => ({
-   width: drawerWidth,
-   transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-   }),
-   overflowX: "hidden",
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-   transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-   }),
-   overflowX: "hidden",
-   width: `calc(${theme.spacing(7)} + 1px)`,
-   [theme.breakpoints.up("sm")]: {
-      width: `calc(${theme.spacing(8)} + 1px)`,
-   },
-});
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-   display: "flex",
-   alignItems: "center",
-   justifyContent: "flex-end",
-   padding: theme.spacing(0, 1),
-   // necessary for content to be below app bar
-   ...theme.mixins.toolbar,
-}));
-
-interface AppBarProps extends MuiAppBarProps {
-   open?: boolean;
-}
-
-const AppBarStyled = styled(AppBar, {
-   shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-   zIndex: theme.zIndex.drawer + 1,
-   transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-   }),
-   ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-         easing: theme.transitions.easing.sharp,
-         duration: theme.transitions.duration.enteringScreen,
-      }),
-   }),
-}));
-
-const DrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== "open" })(({ theme, open }) => ({
-   width: drawerWidth,
-   flexShrink: 0,
-   whiteSpace: "nowrap",
-   boxSizing: "border-box",
-   ...(open && {
-      ...openedMixin(theme),
-      "& .MuiDrawer-paper": openedMixin(theme),
-   }),
-   ...(!open && {
-      ...closedMixin(theme),
-      "& .MuiDrawer-paper": closedMixin(theme),
-   }),
-}));
+import useThemeToggle from "@/core/hooks/useThemeToggle";
 
 export default function Overview() {
    const [open, setOpen] = useState(false);
 
-   const theme = useTheme();
+   const { toggleTheme } = useThemeToggle();
+
+   const router = useRouter();
 
    return (
-      <Box sx={{ display: "flex" }}>
-         <AppBarStyled position="fixed" open={open}>
+      <Stack>
+         <AppBar className="bg-slate-800 dark:bg-white h-16" position="static">
             <Toolbar>
-               <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={() => setOpen(!open)}
-                  edge="start"
-                  sx={{
-                     marginRight: 5,
-                     ...(open && { display: "none" }),
-                  }}
-               >
-                  <MenuIcon />
-               </IconButton>
-               <Typography variant="h6" noWrap component="div">
-                  Mini variant drawer
-               </Typography>
+               <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} width={"100%"}>
+                  <IconButton onClick={() => setOpen(!open)} edge="start">
+                     <Bars3BottomLeftIcon className="size-6 text-white dark:text-slate-800" />
+                  </IconButton>
+
+                  <Box>
+                     <IconButton size="large" edge="start" onClick={toggleTheme}>
+                        <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
+                     </IconButton>
+                     <IconButton>
+                        <UserCircleIcon className="size-6 text-white dark:text-slate-800" />
+                     </IconButton>
+                  </Box>
+               </Box>
             </Toolbar>
-         </AppBarStyled>
-         <DrawerStyled variant="permanent" open={open}>
-            <DrawerHeader>
+         </AppBar>
+
+         <Drawer
+            PaperProps={{
+               style: { width: 240 },
+            }}
+            variant="persistent"
+            open={open}
+         >
+            <Box display={"flex"} justifyContent={"end"}>
                <IconButton onClick={() => setOpen(!open)}>
-                  {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                  <ChevronDoubleLeftIcon className="size-6 text-slate-800 dark:text-white" />
                </IconButton>
-            </DrawerHeader>
+            </Box>
+
             <Divider />
+
             <List>
-               {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-                  <ListItem key={text} disablePadding sx={{ display: "block" }}>
-                     <ListItemButton
-                        sx={{
-                           minHeight: 48,
-                           justifyContent: open ? "initial" : "center",
-                           px: 2.5,
-                        }}
-                     >
-                        <ListItemIcon
-                           sx={{
-                              minWidth: 0,
-                              mr: open ? 3 : "auto",
-                              justifyContent: "center",
-                           }}
-                        >
-                           {index % 2 === 0 ? <InboxIcon /> : <InboxIcon />}
+               {["Dashboard", "CRM", "Analytics"].map((text, index) => (
+                  <ListItem key={text} disablePadding>
+                     <ListItemButton>
+                        <ListItemIcon>
+                           {text.toLowerCase() === "crm" && <ChatBubbleBottomCenterIcon className="size-6" />}
+                           {text.toLowerCase() === "dashboard" && <BuildingLibraryIcon className="size-6" />}
+                           {text.toLowerCase() === "analytics" && <ChartBarIcon className="size-6" />}
                         </ListItemIcon>
-                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary={text} />
                      </ListItemButton>
                   </ListItem>
                ))}
             </List>
-            <Divider />
-            <List>
-               {["All mail", "Trash", "Spam"].map((text, index) => (
-                  <ListItem key={text} disablePadding sx={{ display: "block" }}>
-                     <ListItemButton
-                        sx={{
-                           minHeight: 48,
-                           justifyContent: open ? "initial" : "center",
-                           px: 2.5,
-                        }}
-                     >
-                        <ListItemIcon
-                           sx={{
-                              minWidth: 0,
-                              mr: open ? 3 : "auto",
-                              justifyContent: "center",
-                           }}
-                        >
-                           {index % 2 === 0 ? <InboxIcon /> : <InboxIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                     </ListItemButton>
-                  </ListItem>
-               ))}
-            </List>
-         </DrawerStyled>
-         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <DrawerHeader />
+         </Drawer>
+
+         <Box component="main" marginTop={4} paddingX={4}>
             <Typography paragraph>
                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Risus at ultrices
@@ -192,17 +103,11 @@ export default function Overview() {
                consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie
                ac.
             </Typography>
-            <Typography paragraph>
-               Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam
-               dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi
-               lacus sed viverra tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio
-               morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus
-               viverra accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam
-               sem et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh
-               sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel
-               facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-            </Typography>
+
+            <Button variant="contained" onClick={() => router.push("/")}>
+               Voltar para o login
+            </Button>
          </Box>
-      </Box>
+      </Stack>
    );
 }
