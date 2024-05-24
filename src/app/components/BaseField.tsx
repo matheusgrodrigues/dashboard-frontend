@@ -1,15 +1,14 @@
 import React, { HTMLInputTypeAttribute, useCallback } from "react";
 
-import { Controller, useFormContext } from "./Form";
+import { Controller, useFormContext } from "./BaseForm";
 
-interface FieldProps {
-   render: React.ReactElement;
+interface BaseFieldProps {
+   children: React.ReactElement;
    name: string;
    type?: HTMLInputTypeAttribute;
-   id?: string;
 }
 
-export const Field: React.FC<FieldProps> = ({ render, name, type, id }) => {
+export const BaseField: React.FC<BaseFieldProps> = ({ children, name, type }) => {
    const { control, formState } = useFormContext();
 
    const getHelperText = useCallback(() => {
@@ -34,15 +33,13 @@ export const Field: React.FC<FieldProps> = ({ render, name, type, id }) => {
             return (
                <>
                   {formState.errors && formState.errors[name]
-                     ? React.cloneElement(render, {
+                     ? React.cloneElement(children, {
                           ...props,
-                          id: id ?? name,
-                          error: true,
                           helperText: getHelperText(),
+                          error: true,
                        })
-                     : React.cloneElement(render, {
+                     : React.cloneElement(children, {
                           ...props,
-                          id: id ?? name,
                        })}
                </>
             );
@@ -52,4 +49,4 @@ export const Field: React.FC<FieldProps> = ({ render, name, type, id }) => {
    );
 };
 
-export default Field;
+export default BaseField;
