@@ -1,15 +1,15 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
-import React from "react";
+import React from 'react';
 
 interface DashboardLayoutProps {
-   children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 export const metadata: Metadata = {
-   title: "Overview",
+    title: 'Overview',
 };
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-   return <>{children}</>;
+    return <>{children}</>;
 }

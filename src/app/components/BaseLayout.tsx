@@ -1,132 +1,167 @@
-import React, { useState, memo } from "react";
+import React, { useCallback, useState, memo } from 'react';
+import { useRouter } from 'next/navigation';
 
 import {
-   IconButton,
-   Divider,
-   Toolbar,
-   AppBar,
-   Drawer,
-   Stack,
-   Box,
-   ListItemButton,
-   ListItemIcon,
-   ListItemText,
-   ListItem,
-   List,
-} from "@mui/material";
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    ListItem,
+    List,
+    Typography,
+    IconButton,
+    MenuItem,
+    Divider,
+    Toolbar,
+    AppBar,
+    Drawer,
+    Avatar,
+    Stack,
+    Menu,
+    Box,
+} from '@mui/material';
 
 import {
-   ChatBubbleBottomCenterIcon,
-   ChevronDoubleLeftIcon,
-   Bars3BottomLeftIcon,
-   BuildingLibraryIcon,
-   Square2StackIcon,
-   UserCircleIcon,
-   ChartBarIcon,
-   SunIcon,
-} from "@heroicons/react/16/solid";
+    ChatBubbleBottomCenterIcon,
+    ChevronDoubleLeftIcon,
+    Bars3BottomLeftIcon,
+    BuildingLibraryIcon,
+    RocketLaunchIcon,
+    ChartBarIcon,
+    SunIcon,
+} from '@heroicons/react/16/solid';
 
-import useThemeToggle from "@/core/hooks/useThemeToggle";
+import useThemeToggle from '@/core/hooks/useThemeToggle';
+
+const UserMenu: React.FC = () => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const router = useRouter();
+
+    const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget), []);
+    const handleClose = useCallback(() => setAnchorEl(null), []);
+
+    return (
+        <>
+            <IconButton onClick={handleClick}>
+                <Avatar className="size-8">M</Avatar>
+            </IconButton>
+
+            <Menu
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                onClick={handleClose}
+                open={Boolean(anchorEl)}
+            >
+                <MenuItem className="flex gap-4" onClick={handleClose}>
+                    <Avatar className="size-6" />
+                    <Typography>Profile</Typography>
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem className="flex gap-4" onClick={() => router.push('/')}>
+                    <Typography>Sair</Typography>
+                </MenuItem>
+            </Menu>
+        </>
+    );
+};
 
 interface BaseLayoutContentProps {
-   children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = memo(function BaseLayoutContent({
-   children,
+    children,
 }) {
-   console.log("BaseLayoutContent");
-
-   return (
-      <Box component="main" marginTop={4} paddingX={4}>
-         {children}
-      </Box>
-   );
+    return (
+        <Box component="main" marginTop={4} paddingX={2}>
+            {children}
+        </Box>
+    );
 });
 
 interface BaseLayoutProps {
-   children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
-   const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-   const { toggleTheme } = useThemeToggle();
+    const { toggleTheme } = useThemeToggle();
 
-   console.log("BaseLayout");
+    const drawerWidth = {
+        opened: '240px',
+        closed: '60px',
+    };
 
-   return (
-      <Stack>
-         <AppBar className="bg-slate-800 dark:bg-white h-16" position="static">
-            <Toolbar>
-               <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} width={"100%"}>
-                  <IconButton onClick={() => setOpen(!open)} edge="start">
-                     <Bars3BottomLeftIcon className="size-6 text-white dark:text-slate-800" />
-                  </IconButton>
+    return (
+        <Stack paddingLeft={open ? drawerWidth.opened : drawerWidth.closed}>
+            <AppBar className="dark:bg-white bg-slate-800 h-16" position="static">
+                <Toolbar>
+                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
+                        <IconButton onClick={() => setOpen(!open)} edge="start">
+                            {open ? (
+                                <ChevronDoubleLeftIcon className="size-6 dark:text-slate-800 text-white" />
+                            ) : (
+                                <Bars3BottomLeftIcon className="size-6 dark:text-slate-800 text-white" />
+                            )}
+                        </IconButton>
 
-                  <Box>
-                     <IconButton size="large" edge="start" onClick={toggleTheme}>
-                        <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
-                     </IconButton>
-                     <IconButton>
-                        <UserCircleIcon className="size-6 text-white dark:text-slate-800" />
-                     </IconButton>
-                  </Box>
-               </Box>
-            </Toolbar>
-         </AppBar>
+                        <Box>
+                            <IconButton onClick={toggleTheme} size="large" edge="start">
+                                <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
+                            </IconButton>
 
-         <Drawer
-            PaperProps={{
-               style: { width: 240 },
-            }}
-            variant="persistent"
-            open={open}
-         >
-            <Box display={"flex"} justifyContent={"end"}>
-               <IconButton onClick={() => setOpen(!open)}>
-                  <ChevronDoubleLeftIcon className="size-6 text-slate-800 dark:text-white" />
-               </IconButton>
-            </Box>
+                            <UserMenu />
+                        </Box>
+                    </Box>
+                </Toolbar>
+            </AppBar>
 
-            <Divider />
+            <Drawer
+                PaperProps={{
+                    style: {
+                        width: `${open ? drawerWidth.opened : drawerWidth.closed}`,
+                    },
+                }}
+                variant="permanent"
+                open={open}
+            >
+                <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                    <IconButton>
+                        <RocketLaunchIcon className="text-sky-800 size-8" />
+                    </IconButton>
 
-            <List>
-               {["Dashboard", "CRM", "Analytics"].map((text, index) => (
-                  <ListItem key={text} disablePadding>
-                     <ListItemButton>
-                        <ListItemIcon>
-                           {text.toLowerCase() === "crm" && <ChatBubbleBottomCenterIcon className="size-6" />}
-                           {text.toLowerCase() === "dashboard" && <BuildingLibraryIcon className="size-6" />}
-                           {text.toLowerCase() === "analytics" && <ChartBarIcon className="size-6" />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                     </ListItemButton>
-                  </ListItem>
-               ))}
+                    {open && <Typography>Genese Dashboard</Typography>}
+                </Box>
 
-               <Divider />
-            </List>
+                <Divider />
 
-            <List>
-               {Array(3)
-                  .fill("Menu item")
-                  .map((text, index) => (
-                     <ListItem key={index} disablePadding>
-                        <ListItemButton>
-                           <ListItemIcon>
-                              <Square2StackIcon className="size-6" />
-                           </ListItemIcon>
-                           <ListItemText primary={text} />
-                        </ListItemButton>
-                     </ListItem>
-                  ))}
-            </List>
-         </Drawer>
+                <List className="flex flex-col gap-4 py-4">
+                    {['Dashboard', 'CRM', 'Analytics'].map((text, index) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton className="p-0">
+                                <ListItemIcon className="size-6  justify-center">
+                                    {text.toLowerCase() === 'crm' && <ChatBubbleBottomCenterIcon />}
+                                    {text.toLowerCase() === 'dashboard' && <BuildingLibraryIcon />}
+                                    {text.toLowerCase() === 'analytics' && <ChartBarIcon />}
+                                </ListItemIcon>
 
-         <BaseLayoutContent>{children}</BaseLayoutContent>
-      </Stack>
-   );
+                                {open && <ListItemText primary={text} />}
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+
+                    <Divider />
+                </List>
+            </Drawer>
+
+            <BaseLayoutContent>{children}</BaseLayoutContent>
+        </Stack>
+    );
 };
 
 export default BaseLayout;
