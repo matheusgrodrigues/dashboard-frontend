@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { Button, Typography } from "@mui/material";
+import { Button, Typography } from '@mui/material';
 
-import BaseLayout from "@/app/components/BaseLayout";
+import BaseLayout from '@/app/components/BaseLayout';
 
 export default function Overview() {
-   const router = useRouter();
+    const router = useRouter();
 
-   return (
-      <BaseLayout>
-         <Typography>Overview</Typography>
+    return (
+        <BaseLayout>
+            <Typography>Overview</Typography>
 
-         <Button variant="contained" onClick={() => router.push("/")}>
-            Sair
-         </Button>
-      </BaseLayout>
-   );
+            <Button variant="contained" onClick={() => router.push('/')}>
+                Sair
+            </Button>
+        </BaseLayout>
+    );
 }
