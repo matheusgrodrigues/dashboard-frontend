@@ -19,13 +19,62 @@ import {
     Stack,
     Menu,
     Box,
+    Collapse,
 } from '@mui/material';
 
-import { ChevronDoubleLeftIcon, Bars3BottomLeftIcon, RocketLaunchIcon, SunIcon } from '@heroicons/react/16/solid';
+import {
+    ChevronDoubleLeftIcon,
+    Bars3BottomLeftIcon,
+    RocketLaunchIcon,
+    MinusCircleIcon,
+    PlusCircleIcon,
+    SunIcon,
+} from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 
 import { RoutesProps } from '../config/routes';
+
+interface ListWithSubMenuProps extends RoutesProps {}
+
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
+    const [open, setOpen] = useState(false);
+
+    const Icon = icon;
+
+    return (
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemIcon>
+                    <Icon className="size-6" />
+                </ListItemIcon>
+
+                <ListItemText primary={displayName} />
+
+                {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
+            </ListItemButton>
+
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    {subitems &&
+                        subitems.map(({ displayName, name, icon }) => {
+                            const Icon = icon;
+
+                            return (
+                                <ListItemButton key={name}>
+                                    <ListItemIcon>
+                                        <Icon className="size-5" />
+                                    </ListItemIcon>
+
+                                    {open && <ListItemText primary={displayName} />}
+                                </ListItemButton>
+                            );
+                        })}
+                </List>
+            </Collapse>
+        </List>
+    );
+};
 
 const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -134,14 +183,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                 <Divider />
 
                 <List className="flex flex-col gap-4 py-4">
-                    {routes.menuRoutes.map(({ displayName, name, icon }) => {
+                    {routes.menuRoutes.map((props) => {
+                        const { displayName, subitems, name, icon } = props;
+
                         const Icon = icon;
 
                         return (
                             <React.Fragment key={name}>
                                 <ListItem disablePadding>
                                     <ListItemButton className="p-0">
-                                        <ListItemIcon className="size-6  justify-center">
+                                        <ListItemIcon className="size-6 justify-center">
                                             <Icon />
                                         </ListItemIcon>
 
@@ -149,7 +200,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                                     </ListItemButton>
                                 </ListItem>
 
-                                {name === 'dashboard' && <Divider />}
+                                {subitems && <ListWithSubMenu {...props} />}
                             </React.Fragment>
                         );
                     })}

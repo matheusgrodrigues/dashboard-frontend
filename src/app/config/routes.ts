@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BuildingLibraryIcon, WrenchIcon } from '@heroicons/react/16/solid';
 
-export type routesName = 'dashboard' | 'configuracoes';
+export type routesName = 'dashboard' | 'configuracoes' | 'configurar-tema';
 
 export interface RoutesProps {
     displayName: string;
@@ -14,6 +14,7 @@ export interface RoutesProps {
             titleId?: string | undefined;
         } & React.RefAttributes<SVGSVGElement>
     >;
+    subitems?: RoutesProps[];
 }
 
 const routes: RoutesProps[] = [
@@ -29,8 +30,12 @@ const routes: RoutesProps[] = [
         path: '/configuracoes',
         icon: WrenchIcon,
     },
+    {
+        displayName: 'Configurar Tema',
+        name: 'configurar-tema',
+        path: '/configurar-tema',
+        icon: WrenchIcon,
+    },
 ];
-
-export const getRoute = (name: routesName) => routes.filter((route) => route.name === name)[0];
 
 export default routes;

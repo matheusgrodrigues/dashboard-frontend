@@ -4,10 +4,10 @@ import registerMenuRoutes from '@/core/utils/menu';
 const menuRoutes: RoutesProps[] = [
     registerMenuRoutes({
         route: 'dashboard',
-        subitems: ['configuracoes'],
     }),
     registerMenuRoutes({
         route: 'configuracoes',
+        subitems: ['configurar-tema'],
     }),
 ];
 

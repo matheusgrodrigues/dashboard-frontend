@@ -1,11 +1,13 @@
-import { routesName, getRoute } from '@/app/config/routes';
+import routes, { routesName } from '@/app/config/routes';
 
-interface registerMenuRoutesProps {
+export const getRoute = (name: routesName) => routes.filter((route) => route.name === name)[0];
+
+interface RegisterMenuRoutesProps {
     route: routesName;
     subitems?: routesName[];
 }
 
-const registerMenuRoutes = ({ route, subitems }: registerMenuRoutesProps) => ({
+const registerMenuRoutes = ({ route, subitems }: RegisterMenuRoutesProps) => ({
     ...getRoute(route),
     subitems: subitems?.map((item) => getRoute(item)),
 });
