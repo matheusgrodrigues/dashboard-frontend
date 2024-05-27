@@ -1,4 +1,5 @@
 import React, { useCallback, useState, memo } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import {
@@ -18,19 +19,62 @@ import {
     Stack,
     Menu,
     Box,
+    Collapse,
 } from '@mui/material';
 
 import {
-    ChatBubbleBottomCenterIcon,
     ChevronDoubleLeftIcon,
     Bars3BottomLeftIcon,
-    BuildingLibraryIcon,
     RocketLaunchIcon,
-    ChartBarIcon,
+    MinusCircleIcon,
+    PlusCircleIcon,
     SunIcon,
 } from '@heroicons/react/16/solid';
 
-import useThemeToggle from '@/core/hooks/useThemeToggle';
+import useThemeToggle from '../../core/hooks/useThemeToggle';
+
+import { RoutesProps } from '../config/routes';
+
+interface ListWithSubMenuProps extends RoutesProps {}
+
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
+    const [open, setOpen] = useState(false);
+
+    const Icon = icon;
+
+    return (
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemIcon>
+                    <Icon className="size-6" />
+                </ListItemIcon>
+
+                <ListItemText primary={displayName} />
+
+                {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
+            </ListItemButton>
+
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    {subitems &&
+                        subitems.map(({ displayName, name, icon }) => {
+                            const Icon = icon;
+
+                            return (
+                                <ListItemButton key={name}>
+                                    <ListItemIcon>
+                                        <Icon className="size-5" />
+                                    </ListItemIcon>
+
+                                    {open && <ListItemText primary={displayName} />}
+                                </ListItemButton>
+                            );
+                        })}
+                </List>
+            </Collapse>
+        </List>
+    );
+};
 
 const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,10 +128,11 @@ const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = me
 });
 
 interface BaseLayoutProps {
+    routes: { menuRoutes: RoutesProps[] };
     children: React.ReactNode;
 }
 
-const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
     const [open, setOpen] = useState(false);
 
     const { toggleTheme } = useThemeToggle();
@@ -124,38 +169,41 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
             <Drawer
                 PaperProps={{
                     style: {
-                        width: `${open ? drawerWidth.opened : drawerWidth.closed}`,
+                        width: open ? drawerWidth.opened : drawerWidth.closed,
                     },
                 }}
                 variant="permanent"
                 open={open}
             >
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                    <IconButton>
-                        <RocketLaunchIcon className="text-sky-800 size-8" />
-                    </IconButton>
-
+                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2}>
+                    <RocketLaunchIcon className="text-sky-800 size-8" />
                     {open && <Typography>Genese Dashboard</Typography>}
                 </Box>
 
                 <Divider />
 
                 <List className="flex flex-col gap-4 py-4">
-                    {['Dashboard', 'CRM', 'Analytics'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton className="p-0">
-                                <ListItemIcon className="size-6  justify-center">
-                                    {text.toLowerCase() === 'crm' && <ChatBubbleBottomCenterIcon />}
-                                    {text.toLowerCase() === 'dashboard' && <BuildingLibraryIcon />}
-                                    {text.toLowerCase() === 'analytics' && <ChartBarIcon />}
-                                </ListItemIcon>
+                    {routes.menuRoutes.map((props) => {
+                        const { displayName, subitems, name, icon } = props;
 
-                                {open && <ListItemText primary={text} />}
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                        const Icon = icon;
 
-                    <Divider />
+                        return (
+                            <React.Fragment key={name}>
+                                <ListItem disablePadding>
+                                    <ListItemButton className="p-0">
+                                        <ListItemIcon className="size-6 justify-center">
+                                            <Icon />
+                                        </ListItemIcon>
+
+                                        {open && <ListItemText primary={displayName} />}
+                                    </ListItemButton>
+                                </ListItem>
+
+                                {subitems && <ListWithSubMenu {...props} />}
+                            </React.Fragment>
+                        );
+                    })}
                 </List>
             </Drawer>
 

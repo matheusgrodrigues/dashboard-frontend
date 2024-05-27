@@ -10,20 +10,25 @@ import { LockClosedIcon } from '@heroicons/react/16/solid';
 import BaseField from './components/BaseField';
 import BaseForm, { FieldValues } from './components/BaseForm';
 
+import { getRoute } from '../core/utils/menu';
+
 import formLoginRules from './rules';
 
 export default function Home() {
     const router = useRouter();
 
     const handleSubmit = (data: FieldValues) => {
-        router.push('/dashboard/overview');
+        router.push(getRoute('dashboard').path);
 
         console.log('submit', data);
     };
 
     return (
         <Grid
-            className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
+            className="bg-gray-900 bg-cover bg-no-repeat"
+            style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+            }}
             justifyContent={'center'}
             alignItems={'center'}
             minHeight={'100vh'}
@@ -44,16 +49,16 @@ export default function Home() {
                     <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
                             <BaseField name="email">
-                                <TextField data-testid="email" label="E-mail" />
+                                <TextField data-testid="email" type="email" label="E-mail" />
                             </BaseField>
 
                             <BaseField name="password">
-                                <TextField data-testid="password" label="Password" />
+                                <TextField data-testid="password" type="password" label="Password" />
                             </BaseField>
 
                             <Button
                                 data-testid="submit"
-                                className="font-bold p-4 hover:bg-opacity-90 dark:bg-slate-600"
+                                className="hover:bg-opacity-90 dark:bg-slate-600 font-bold p-4"
                                 variant="contained"
                                 type="submit"
                             >
