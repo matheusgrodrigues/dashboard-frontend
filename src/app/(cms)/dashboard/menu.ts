@@ -1,5 +1,5 @@
 import { RoutesProps } from '@/app/config/routes';
-import registerMenuRoutes from '@/core/utils/menu';
+import registerMenuRoutes from '@/core/utils/routes';
 
 const menuRoutes: RoutesProps[] = [
     registerMenuRoutes({
