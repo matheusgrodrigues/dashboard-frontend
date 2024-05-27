@@ -126,7 +126,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                 variant="permanent"
                 open={open}
             >
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2}>
                     <RocketLaunchIcon className="text-sky-800 size-8" />
                     {open && <Typography>Genese Dashboard</Typography>}
                 </Box>
