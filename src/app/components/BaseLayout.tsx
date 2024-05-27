@@ -1,4 +1,5 @@
 import React, { useCallback, useState, memo } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import {
@@ -20,17 +21,11 @@ import {
     Box,
 } from '@mui/material';
 
-import {
-    ChatBubbleBottomCenterIcon,
-    ChevronDoubleLeftIcon,
-    Bars3BottomLeftIcon,
-    BuildingLibraryIcon,
-    RocketLaunchIcon,
-    ChartBarIcon,
-    SunIcon,
-} from '@heroicons/react/16/solid';
+import { ChevronDoubleLeftIcon, Bars3BottomLeftIcon, RocketLaunchIcon, SunIcon } from '@heroicons/react/16/solid';
 
-import useThemeToggle from '@/core/hooks/useThemeToggle';
+import useThemeToggle from '../../core/hooks/useThemeToggle';
+
+import { RoutesProps } from '../config/routes';
 
 const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,10 +79,11 @@ const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = me
 });
 
 interface BaseLayoutProps {
+    routes: { menuRoutes: RoutesProps[] };
     children: React.ReactNode;
 }
 
-const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
     const [open, setOpen] = useState(false);
 
     const { toggleTheme } = useThemeToggle();
@@ -124,38 +120,39 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
             <Drawer
                 PaperProps={{
                     style: {
-                        width: `${open ? drawerWidth.opened : drawerWidth.closed}`,
+                        width: open ? drawerWidth.opened : drawerWidth.closed,
                     },
                 }}
                 variant="permanent"
                 open={open}
             >
                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                    <IconButton>
-                        <RocketLaunchIcon className="text-sky-800 size-8" />
-                    </IconButton>
-
+                    <RocketLaunchIcon className="text-sky-800 size-8" />
                     {open && <Typography>Genese Dashboard</Typography>}
                 </Box>
 
                 <Divider />
 
                 <List className="flex flex-col gap-4 py-4">
-                    {['Dashboard', 'CRM', 'Analytics'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton className="p-0">
-                                <ListItemIcon className="size-6  justify-center">
-                                    {text.toLowerCase() === 'crm' && <ChatBubbleBottomCenterIcon />}
-                                    {text.toLowerCase() === 'dashboard' && <BuildingLibraryIcon />}
-                                    {text.toLowerCase() === 'analytics' && <ChartBarIcon />}
-                                </ListItemIcon>
+                    {routes.menuRoutes.map(({ displayName, name, icon }) => {
+                        const Icon = icon;
 
-                                {open && <ListItemText primary={text} />}
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                        return (
+                            <React.Fragment key={name}>
+                                <ListItem disablePadding>
+                                    <ListItemButton className="p-0">
+                                        <ListItemIcon className="size-6  justify-center">
+                                            <Icon />
+                                        </ListItemIcon>
 
-                    <Divider />
+                                        {open && <ListItemText primary={displayName} />}
+                                    </ListItemButton>
+                                </ListItem>
+
+                                {name === 'dashboard' && <Divider />}
+                            </React.Fragment>
+                        );
+                    })}
                 </List>
             </Drawer>
 
