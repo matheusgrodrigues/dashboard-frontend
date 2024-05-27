@@ -20,12 +20,14 @@ import {
     Menu,
     Box,
     Collapse,
+    Tooltip,
+    Badge,
+    Breadcrumbs,
 } from '@mui/material';
 
 import {
     ChevronDoubleLeftIcon,
     Bars3BottomLeftIcon,
-    RocketLaunchIcon,
     MinusCircleIcon,
     PlusCircleIcon,
     LanguageIcon,
@@ -34,6 +36,7 @@ import {
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 import { RoutesProps } from '../config/routes';
+import Link from 'next/link';
 
 const ChangeLanguage: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -86,7 +89,7 @@ const UserMenu: React.FC = () => {
     return (
         <>
             <IconButton onClick={handleClick}>
-                <Avatar className="size-8">M</Avatar>
+                <Avatar className="bg-slate-200 text-slate-800 size-8">M</Avatar>
             </IconButton>
 
             <Menu
@@ -121,15 +124,19 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
 
     return (
         <List>
-            <ListItemButton onClick={() => setOpen(!open)}>
-                <ListItemIcon>
-                    <Icon className="size-6" />
-                </ListItemIcon>
+            <Tooltip placement="right" title={displayName}>
+                <ListItemButton onClick={() => setOpen(!open)}>
+                    <ListItemIcon>
+                        <Badge badgeContent={4} color="secondary" variant="standard">
+                            <Icon className="size-6" />
+                        </Badge>
+                    </ListItemIcon>
 
-                <ListItemText primary={displayName} />
+                    <ListItemText primary={displayName} />
 
-                {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
-            </ListItemButton>
+                    {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
+                </ListItemButton>
+            </Tooltip>
 
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
@@ -138,13 +145,15 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
                             const Icon = icon;
 
                             return (
-                                <ListItemButton key={name}>
-                                    <ListItemIcon>
-                                        <Icon className="size-5" />
-                                    </ListItemIcon>
+                                <Tooltip placement="right" key={name} title={displayName}>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <Icon className="size-5" />
+                                        </ListItemIcon>
 
-                                    {open && <ListItemText primary={displayName} />}
-                                </ListItemButton>
+                                        {open && <ListItemText primary={displayName} />}
+                                    </ListItemButton>
+                                </Tooltip>
                             );
                         })}
                 </List>
@@ -182,13 +191,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
             <AppBar className="dark:bg-white bg-slate-800 h-16" position="static">
                 <Toolbar>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-                        <IconButton onClick={() => setOpen(!open)} edge="start">
-                            {open ? (
-                                <ChevronDoubleLeftIcon className="size-6 dark:text-slate-800 text-white" />
-                            ) : (
-                                <Bars3BottomLeftIcon className="size-6 dark:text-slate-800 text-white" />
-                            )}
-                        </IconButton>
+                        <Typography>{!open && 'Genese Dashboard'}</Typography>
 
                         <Box>
                             <ChangeLanguage />
@@ -208,8 +211,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                 variant="permanent"
                 open={open}
             >
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2}>
-                    <RocketLaunchIcon className="text-sky-800 size-8" />
+                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2} gap={2}>
+                    <IconButton className="bg-slate-600" onClick={() => setOpen(!open)}>
+                        {open ? (
+                            <ChevronDoubleLeftIcon className="size-6 text-white" />
+                        ) : (
+                            <Bars3BottomLeftIcon className="size-6 text-white" />
+                        )}
+                    </IconButton>
+
                     {open && <Typography>Genese Dashboard</Typography>}
                 </Box>
 
@@ -227,13 +237,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                                     <ListWithSubMenu {...props} />
                                 ) : (
                                     <ListItem disablePadding>
-                                        <ListItemButton className="p-0">
-                                            <ListItemIcon className="size-6 justify-center">
-                                                <Icon />
-                                            </ListItemIcon>
+                                        <Tooltip placement="right" title={displayName}>
+                                            <ListItemButton className="p-0">
+                                                <ListItemIcon className="size-6 justify-center">
+                                                    <Icon />
+                                                </ListItemIcon>
 
-                                            {open && <ListItemText primary={displayName} />}
-                                        </ListItemButton>
+                                                {open && <ListItemText primary={displayName} />}
+                                            </ListItemButton>
+                                        </Tooltip>
                                     </ListItem>
                                 )}
                             </React.Fragment>
@@ -242,7 +254,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                 </List>
             </Drawer>
 
-            <BaseLayoutContent>{children}</BaseLayoutContent>
+            <BaseLayoutContent>
+                <Breadcrumbs>
+                    <Link className="text-slate-600" href="/dashboard">
+                        Link 1
+                    </Link>
+                    <Link color="inherit" href="#">
+                        Link 2
+                    </Link>
+                    <Typography color="text.primary">Breadcrumbs</Typography>
+                </Breadcrumbs>
+
+                {children}
+            </BaseLayoutContent>
         </Stack>
     );
 };
