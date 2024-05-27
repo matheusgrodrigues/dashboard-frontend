@@ -33,49 +33,7 @@ import {
 } from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
-
 import { RoutesProps } from '../config/routes';
-
-interface ListWithSubMenuProps extends RoutesProps {}
-
-const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
-    const [open, setOpen] = useState(false);
-
-    const Icon = icon;
-
-    return (
-        <List>
-            <ListItemButton onClick={() => setOpen(!open)}>
-                <ListItemIcon>
-                    <Icon className="size-6" />
-                </ListItemIcon>
-
-                <ListItemText primary={displayName} />
-
-                {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
-            </ListItemButton>
-
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    {subitems &&
-                        subitems.map(({ displayName, name, icon }) => {
-                            const Icon = icon;
-
-                            return (
-                                <ListItemButton key={name}>
-                                    <ListItemIcon>
-                                        <Icon className="size-5" />
-                                    </ListItemIcon>
-
-                                    {open && <ListItemText primary={displayName} />}
-                                </ListItemButton>
-                            );
-                        })}
-                </List>
-            </Collapse>
-        </List>
-    );
-};
 
 const ChangeLanguage: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -151,6 +109,47 @@ const UserMenu: React.FC = () => {
                 </MenuItem>
             </Menu>
         </>
+    );
+};
+
+interface ListWithSubMenuProps extends RoutesProps {}
+
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
+    const [open, setOpen] = useState(false);
+
+    const Icon = icon;
+
+    return (
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemIcon>
+                    <Icon className="size-6" />
+                </ListItemIcon>
+
+                <ListItemText primary={displayName} />
+
+                {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
+            </ListItemButton>
+
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    {subitems &&
+                        subitems.map(({ displayName, name, icon }) => {
+                            const Icon = icon;
+
+                            return (
+                                <ListItemButton key={name}>
+                                    <ListItemIcon>
+                                        <Icon className="size-5" />
+                                    </ListItemIcon>
+
+                                    {open && <ListItemText primary={displayName} />}
+                                </ListItemButton>
+                            );
+                        })}
+                </List>
+            </Collapse>
+        </List>
     );
 };
 
