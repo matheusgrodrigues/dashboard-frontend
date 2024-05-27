@@ -10,7 +10,7 @@ import { LockClosedIcon } from '@heroicons/react/16/solid';
 import BaseField from './components/BaseField';
 import BaseForm, { FieldValues } from './components/BaseForm';
 
-import { getRoute } from '../core/utils/menu';
+import { getRoute } from '../core/utils/routes';
 
 import formLoginRules from './rules';
 
