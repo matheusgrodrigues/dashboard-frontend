@@ -28,6 +28,7 @@ import {
     RocketLaunchIcon,
     MinusCircleIcon,
     PlusCircleIcon,
+    LanguageIcon,
     SunIcon,
 } from '@heroicons/react/16/solid';
 
@@ -73,6 +74,46 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
                 </List>
             </Collapse>
         </List>
+    );
+};
+
+const ChangeLanguage: React.FC = () => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const handleClose = useCallback(() => setAnchorEl(null), []);
+
+    return (
+        <>
+            <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
+                <LanguageIcon className="dark:text-slate-800 text-white size-6" />
+            </IconButton>
+
+            <Menu
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                onClick={handleClose}
+                open={Boolean(anchorEl)}
+            >
+                <MenuItem className="flex gap-4" onClick={handleClose}>
+                    <Typography>Português</Typography>
+                </MenuItem>
+                <MenuItem className="flex gap-4" onClick={handleClose}>
+                    <Typography>Inglês</Typography>
+                </MenuItem>
+            </Menu>
+        </>
+    );
+};
+
+const ChangeTheme: React.FC = () => {
+    const { toggleTheme } = useThemeToggle();
+
+    return (
+        <IconButton onClick={toggleTheme} size="large" edge="start">
+            <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
+        </IconButton>
     );
 };
 
@@ -135,15 +176,10 @@ interface BaseLayoutProps {
 const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
     const [open, setOpen] = useState(false);
 
-    const { toggleTheme } = useThemeToggle();
-
-    const drawerWidth = {
-        opened: '240px',
-        closed: '60px',
-    };
+    const openCloseWidthValue = open ? '240px' : '60px';
 
     return (
-        <Stack paddingLeft={open ? drawerWidth.opened : drawerWidth.closed}>
+        <Stack paddingLeft={openCloseWidthValue}>
             <AppBar className="dark:bg-white bg-slate-800 h-16" position="static">
                 <Toolbar>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
@@ -156,10 +192,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                         </IconButton>
 
                         <Box>
-                            <IconButton onClick={toggleTheme} size="large" edge="start">
-                                <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
-                            </IconButton>
-
+                            <ChangeLanguage />
+                            <ChangeTheme />
                             <UserMenu />
                         </Box>
                     </Box>
@@ -169,7 +203,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
             <Drawer
                 PaperProps={{
                     style: {
-                        width: open ? drawerWidth.opened : drawerWidth.closed,
+                        width: openCloseWidthValue,
                     },
                 }}
                 variant="permanent"
@@ -190,17 +224,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
 
                         return (
                             <React.Fragment key={name}>
-                                <ListItem disablePadding>
-                                    <ListItemButton className="p-0">
-                                        <ListItemIcon className="size-6 justify-center">
-                                            <Icon />
-                                        </ListItemIcon>
+                                {subitems && subitems.length > 0 ? (
+                                    <ListWithSubMenu {...props} />
+                                ) : (
+                                    <ListItem disablePadding>
+                                        <ListItemButton className="p-0">
+                                            <ListItemIcon className="size-6 justify-center">
+                                                <Icon />
+                                            </ListItemIcon>
 
-                                        {open && <ListItemText primary={displayName} />}
-                                    </ListItemButton>
-                                </ListItem>
-
-                                {subitems && <ListWithSubMenu {...props} />}
+                                            {open && <ListItemText primary={displayName} />}
+                                        </ListItemButton>
+                                    </ListItem>
+                                )}
                             </React.Fragment>
                         );
                     })}

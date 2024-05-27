@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BuildingLibraryIcon, WrenchIcon } from '@heroicons/react/16/solid';
+import { BuildingLibraryIcon, BuildingStorefrontIcon, WrenchIcon } from '@heroicons/react/16/solid';
 
 export type routesName = 'dashboard' | 'configuracoes' | 'configurar-tema';
 
@@ -34,7 +34,7 @@ const routes: RoutesProps[] = [
         displayName: 'Configurar Tema',
         name: 'configurar-tema',
         path: '/configurar-tema',
-        icon: WrenchIcon,
+        icon: BuildingStorefrontIcon,
     },
 ];
 
