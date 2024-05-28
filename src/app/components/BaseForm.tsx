@@ -25,10 +25,7 @@ interface BaseFormProps extends React.DetailedHTMLProps<React.FormHTMLAttributes
     onSubmit: SubmitHandler<any>;
 }
 
-const BaseForm: React.ForwardRefRenderFunction<BaseFormRef, BaseFormProps> = (
-    { validationSchema, onSubmit, children, ...props },
-    ref
-) => {
+const BaseForm = forwardRef<BaseFormRef, BaseFormProps>(({ validationSchema, onSubmit, children, ...props }, ref) => {
     const methods = useForm<FieldValues>({
         resolver: yupResolver(validationSchema),
     });
@@ -42,10 +39,12 @@ const BaseForm: React.ForwardRefRenderFunction<BaseFormRef, BaseFormProps> = (
             </form>
         </FormProvider>
     );
-};
+});
+
+BaseForm.displayName = 'BaseForm';
 
 export type { UseFormRegisterReturn, UseFormRegister, SubmitHandler, FieldValues };
 
 export { useFormContext, useForm, useController, Controller };
 
-export default forwardRef(BaseForm);
+export default BaseForm;
