@@ -1,7 +1,7 @@
 import { RoutesProps } from '@/app/config/routes';
 import registerMenuRoutes from '@/core/utils/routes';
 
-const breadcrumbRoutes: RoutesProps[] = [
+const breadcrumb: RoutesProps[] = [
     registerMenuRoutes({
         route: 'dashboard',
     }),
@@ -10,4 +10,4 @@ const breadcrumbRoutes: RoutesProps[] = [
     }),
 ];
 
-export default breadcrumbRoutes;
+export default breadcrumb;

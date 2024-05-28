@@ -1,7 +1,7 @@
 import { RoutesProps } from '@/app/config/routes';
 import registerMenuRoutes from '@/core/utils/routes';
 
-const menuRoutes: RoutesProps[] = [
+const menu: RoutesProps[] = [
     registerMenuRoutes({
         route: 'dashboard',
     }),
@@ -11,4 +11,4 @@ const menuRoutes: RoutesProps[] = [
     }),
 ];
 
-export default menuRoutes;
+export default menu;

@@ -177,7 +177,7 @@ const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = me
 });
 
 interface BaseLayoutProps {
-    routes: { breadcrumbRoutes: RoutesProps[]; menuRoutes: RoutesProps[] };
+    routes: { breadcrumb: RoutesProps[]; menu: RoutesProps[] };
     children: React.ReactNode;
 }
 
@@ -226,7 +226,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                 <Divider />
 
                 <List className="flex flex-col gap-4 py-4">
-                    {routes.menuRoutes.map((props) => {
+                    {routes.menu.map((props) => {
                         const { displayName, subitems, name, icon } = props;
 
                         const Icon = icon;
@@ -256,10 +256,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
 
             <BaseLayoutContent>
                 <Breadcrumbs>
-                    {routes.breadcrumbRoutes.map(({ displayName, path, name }, key) => {
+                    {routes.breadcrumb.map(({ displayName, path, name }, key) => {
                         return (
                             <React.Fragment key={name}>
-                                {key === routes.breadcrumbRoutes.length - 1 ? (
+                                {key === routes.breadcrumb.length - 1 ? (
                                     <Typography color="text.primary">{displayName}</Typography>
                                 ) : (
                                     <Link className="text-slate-600" href={path} key={name}>
