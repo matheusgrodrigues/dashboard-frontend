@@ -1,10 +1,12 @@
 'use client';
 
+import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import { Button, Typography } from '@mui/material';
 
-import BaseLayout from '@/app/components/BaseLayout';
+import BaseLayout from '../../components/BaseLayout';
 
 import breadcrumb from './breadcrumb';
 import menu from './menu';

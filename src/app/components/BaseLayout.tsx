@@ -45,7 +45,7 @@ const ChangeLanguage = () => {
     const handleClose = useCallback(() => setAnchorEl(null), []);
 
     return (
-        <>
+        <Box data-testid="changeLanguage" component={'span'}>
             <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
                 <LanguageIcon className="dark:text-slate-800 text-white size-6" />
             </IconButton>
@@ -65,7 +65,7 @@ const ChangeLanguage = () => {
                     <Typography>Inglês</Typography>
                 </MenuItem>
             </Menu>
-        </>
+        </Box>
     );
 };
 
@@ -73,7 +73,7 @@ const ChangeTheme = () => {
     const { toggleTheme } = useThemeToggle();
 
     return (
-        <IconButton onClick={toggleTheme} size="large" edge="start">
+        <IconButton data-testid="changeTheme" onClick={toggleTheme} size="large" edge="start">
             <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
         </IconButton>
     );
@@ -88,7 +88,7 @@ const UserMenu = () => {
     const handleClose = useCallback(() => setAnchorEl(null), []);
 
     return (
-        <>
+        <Box data-testid="userMenu" component={'span'}>
             <IconButton onClick={handleClick}>
                 <Avatar className="bg-slate-200 text-slate-800 size-8">M</Avatar>
             </IconButton>
@@ -112,7 +112,7 @@ const UserMenu = () => {
                     <Typography>Sair</Typography>
                 </MenuItem>
             </Menu>
-        </>
+        </Box>
     );
 };
 
@@ -191,7 +191,7 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
 
     return (
         <Stack paddingLeft={openCloseWidthValue}>
-            <AppBar className="dark:bg-white bg-slate-800 h-16" position="static">
+            <AppBar data-testid="appBar" className="dark:bg-white bg-slate-800 h-16" position="static">
                 <Toolbar>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
                         <Typography>{!open && 'Genese Dashboard'}</Typography>
