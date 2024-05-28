@@ -259,19 +259,17 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
 
             <BaseLayoutContent>
                 <Breadcrumbs>
-                    {routes.breadcrumb.map(({ displayName, path, name }, key) => {
-                        return (
-                            <React.Fragment key={name}>
-                                {key === routes.breadcrumb.length - 1 ? (
-                                    <Typography color="text.primary">{displayName}</Typography>
-                                ) : (
-                                    <Link className="text-slate-600" href={path} key={name}>
-                                        {displayName}
-                                    </Link>
-                                )}
-                            </React.Fragment>
-                        );
-                    })}
+                    {routes.breadcrumb.map(({ displayName, path, name }, key) => (
+                        <Box key={name}>
+                            {key === routes.breadcrumb.length - 1 ? (
+                                <Typography color="text.primary">{displayName}</Typography>
+                            ) : (
+                                <Link className="text-slate-600" href={path} key={name}>
+                                    {displayName}
+                                </Link>
+                            )}
+                        </Box>
+                    ))}
                 </Breadcrumbs>
 
                 {children}
