@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import React, { useCallback, useState, memo } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
     ListItemButton,
@@ -121,12 +121,14 @@ interface ListWithSubMenuProps extends RoutesProps {}
 const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, path, subitems, icon }) => {
     const [open, setOpen] = useState(false);
 
+    const pathname = usePathname();
+
     const Icon = icon;
 
     return (
         <List>
             <Tooltip placement="right" title={displayName}>
-                <ListItemButton selected={location.pathname === path} onClick={() => setOpen(!open)}>
+                <ListItemButton selected={pathname === path} onClick={() => setOpen(!open)}>
                     <ListItemIcon>
                         <Badge badgeContent={4} color="secondary" variant="standard">
                             <Icon className="size-6" />
@@ -147,7 +149,7 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, path, su
 
                             return (
                                 <Tooltip placement="right" key={name} title={displayName}>
-                                    <ListItemButton selected={location.pathname === path}>
+                                    <ListItemButton selected={pathname === path}>
                                         <ListItemIcon>
                                             <Icon className="size-5" />
                                         </ListItemIcon>
@@ -185,7 +187,7 @@ interface BaseLayoutProps {
 const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
     const [open, setOpen] = useState(false);
 
-    const router = useRouter();
+    const pathname = usePathname();
 
     const openCloseWidthValue = open ? '240px' : '60px';
 
@@ -241,7 +243,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                                 ) : (
                                     <ListItem disablePadding>
                                         <Tooltip placement="right" title={displayName}>
-                                            <ListItemButton className="p-0" selected={location.pathname === path}>
+                                            <ListItemButton className="p-0" selected={pathname === path}>
                                                 <ListItemIcon className="size-6 justify-center">
                                                     <Icon />
                                                 </ListItemIcon>
