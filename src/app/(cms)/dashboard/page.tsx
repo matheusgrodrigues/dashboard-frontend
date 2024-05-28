@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import BaseLayout from '../../components/BaseLayout';
 
@@ -17,10 +17,6 @@ export default function Overview() {
     return (
         <BaseLayout routes={{ breadcrumb, menu }}>
             <Typography>Overview</Typography>
-
-            <Button variant="contained" onClick={() => router.push('/')}>
-                Sair
-            </Button>
         </BaseLayout>
     );
 }
