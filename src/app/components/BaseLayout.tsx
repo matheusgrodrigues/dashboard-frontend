@@ -177,7 +177,7 @@ const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = me
 });
 
 interface BaseLayoutProps {
-    routes: { menuRoutes: RoutesProps[] };
+    routes: { breadcrumbRoutes: RoutesProps[]; menuRoutes: RoutesProps[] };
     children: React.ReactNode;
 }
 
@@ -256,13 +256,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
 
             <BaseLayoutContent>
                 <Breadcrumbs>
-                    <Link className="text-slate-600" href="/dashboard">
-                        Link 1
-                    </Link>
-                    <Link color="inherit" href="#">
-                        Link 2
-                    </Link>
-                    <Typography color="text.primary">Breadcrumbs</Typography>
+                    {routes.breadcrumbRoutes.map(({ displayName, path, name }, key) => {
+                        return (
+                            <React.Fragment key={name}>
+                                {key === routes.breadcrumbRoutes.length - 1 ? (
+                                    <Typography color="text.primary">{displayName}</Typography>
+                                ) : (
+                                    <Link className="text-slate-600" href={path} key={name}>
+                                        {displayName}
+                                    </Link>
+                                )}
+                            </React.Fragment>
+                        );
+                    })}
                 </Breadcrumbs>
 
                 {children}
