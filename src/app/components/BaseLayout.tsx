@@ -30,9 +30,9 @@ import {
 import {
     ChevronDoubleLeftIcon,
     Bars3BottomLeftIcon,
-    MinusCircleIcon,
-    PlusCircleIcon,
     LanguageIcon,
+    MinusIcon,
+    PlusIcon,
     SunIcon,
 } from '@heroicons/react/16/solid';
 
@@ -130,14 +130,14 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, path, su
             <Tooltip placement="right" title={displayName}>
                 <ListItemButton selected={pathname === path} onClick={() => setOpen(!open)}>
                     <ListItemIcon>
-                        <Badge badgeContent={4} color="secondary" variant="standard">
+                        <Badge badgeContent={subitems?.length} color="secondary" variant="standard">
                             <Icon className="size-6" />
                         </Badge>
                     </ListItemIcon>
 
                     <ListItemText primary={displayName} />
 
-                    {open ? <MinusCircleIcon className="size-4" /> : <PlusCircleIcon className="size-4" />}
+                    {open ? <MinusIcon className="size-4" /> : <PlusIcon className="size-4" />}
                 </ListItemButton>
             </Tooltip>
 
