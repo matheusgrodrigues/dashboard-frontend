@@ -23,22 +23,42 @@ describe('Deve renderizar o BaseLayout corretamente', () => {
             expect(getAppBar).toBeInTheDocument();
         });
 
-        it('Deve renderizar o componente ChangeLanguage', () => {
+        it('Deve renderizar o ChangeLanguage', () => {
             const getChangeLanguage = screen.getByTestId('changeLanguage');
 
             expect(getChangeLanguage).toBeInTheDocument();
         });
 
-        it('Deve renderizar o componente ToggleTheme', () => {
+        it('Deve renderizar o ToggleTheme', () => {
             const getToggleTheme = screen.getByTestId('changeTheme');
 
             expect(getToggleTheme).toBeInTheDocument();
         });
 
-        it('Deve renderizar o componente UserMenu', () => {
+        it('Deve renderizar o UserMenu', () => {
             const getUserMenu = screen.getByTestId('userMenu');
 
             expect(getUserMenu).toBeInTheDocument();
+        });
+    });
+
+    describe('Deve renderizar o Drawer corretamente', () => {
+        it('Deve renderizar o Drawer', () => {
+            const getDrawer = screen.getByTestId('drawer');
+
+            expect(getDrawer).toBeInTheDocument();
+        });
+
+        it('Deve renderizar o layout-content', () => {
+            const getLayoutContent = screen.getByTestId('layout-content');
+
+            expect(getLayoutContent).toBeInTheDocument();
+        });
+
+        it('Deve renderizar o breadcrumb', () => {
+            const getBreadcrumb = screen.getByTestId('breadcrumb');
+
+            expect(getBreadcrumb).toBeInTheDocument();
         });
     });
 });

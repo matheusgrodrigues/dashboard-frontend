@@ -171,7 +171,7 @@ interface BaseLayoutContentProps {
 
 const BaseLayoutContent = memo(function BaseLayoutContent({ children }: BaseLayoutContentProps) {
     return (
-        <Box component="main" marginTop={4} paddingX={2}>
+        <Box data-testid="layout-content" component="main" marginTop={4} paddingX={2}>
             {children}
         </Box>
     );
@@ -206,6 +206,7 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
             </AppBar>
 
             <Drawer
+                data-testid="drawer"
                 PaperProps={{
                     style: {
                         width: openCloseWidthValue,
@@ -258,7 +259,7 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
             </Drawer>
 
             <BaseLayoutContent>
-                <Breadcrumbs>
+                <Breadcrumbs data-testid="breadcrumb">
                     {routes.breadcrumb.map(({ displayName, path, name }, key) => (
                         <Box key={name}>
                             {key === routes.breadcrumb.length - 1 ? (
