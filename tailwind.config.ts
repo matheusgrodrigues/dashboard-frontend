@@ -1,27 +1,20 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-   corePlugins: {
-      preflight: false,
-   },
-   content: [
-      "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-      "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-      "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-   ],
-   darkMode: "selector",
-   important: true,
-   theme: {
-      extend: {
-         screens: {
-            sm: "600px",
-            md: "900px",
-            lg: "1200px",
-            xl: "1536px",
-         },
-      },
-   },
+    corePlugins: {
+        preflight: false,
+    },
+    content: [
+        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    ],
+    darkMode: 'selector',
+    important: true,
+    theme: {
+        extend: {},
+    },
 
-   plugins: [],
+    plugins: [],
 };
 export default config;

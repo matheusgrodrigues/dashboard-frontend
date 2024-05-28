@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import React, { useCallback, useState, memo } from 'react';
 
 import { useRouter } from 'next/navigation';
@@ -36,7 +38,6 @@ import {
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 import { RoutesProps } from '../config/routes';
-import Link from 'next/link';
 
 const ChangeLanguage: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
