@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import React, { useCallback, useState, memo } from 'react';
+import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -10,21 +10,21 @@ import {
     ListItemText,
     ListItem,
     List,
+    Breadcrumbs,
     Typography,
     IconButton,
     MenuItem,
+    Collapse,
+    Tooltip,
     Divider,
     Toolbar,
     AppBar,
     Drawer,
     Avatar,
+    Badge,
     Stack,
     Menu,
     Box,
-    Collapse,
-    Tooltip,
-    Badge,
-    Breadcrumbs,
 } from '@mui/material';
 
 import {
@@ -37,7 +37,9 @@ import {
 } from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
+
 import { RoutesProps } from '../../config/routes';
+import menu from '@/config/menu';
 
 const ChangeLanguage = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -122,13 +124,20 @@ const ListWithSubMenu = ({ displayName, path, subitems, icon }: ListWithSubMenuP
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
+    const router = useRouter();
 
     const Icon = icon;
+
+    const findItem = useMemo(() => subitems?.find((item) => item.path === pathname), [subitems, pathname]);
+
+    useLayoutEffect(() => {
+        findItem ? setOpen(true) : setOpen(false);
+    }, [findItem]);
 
     return (
         <List>
             <Tooltip placement="right" title={displayName}>
-                <ListItemButton selected={pathname === path} onClick={() => setOpen(!open)}>
+                <ListItemButton onClick={() => setOpen(!open)}>
                     <ListItemIcon>
                         <Badge badgeContent={subitems?.length} color="secondary" variant="standard">
                             <Icon className="size-6" />
@@ -149,7 +158,7 @@ const ListWithSubMenu = ({ displayName, path, subitems, icon }: ListWithSubMenuP
 
                             return (
                                 <Tooltip placement="right" key={name} title={displayName}>
-                                    <ListItemButton selected={pathname === path}>
+                                    <ListItemButton selected={pathname === path} onClick={() => router.push(path)}>
                                         <ListItemIcon>
                                             <Icon className="size-5" />
                                         </ListItemIcon>
@@ -178,14 +187,16 @@ const BaseLayoutContent = memo(function BaseLayoutContent({ children }: BaseLayo
 });
 
 interface BaseLayoutProps {
-    routes: { breadcrumb: RoutesProps[]; menu: RoutesProps[] };
     children: React.ReactNode;
+    headerTitle?: string;
+    breadcrumb?: RoutesProps[];
 }
 
-const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
+const BaseLayout = ({ headerTitle, breadcrumb, children }: BaseLayoutProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
+    const router = useRouter();
 
     const openCloseWidthValue = open ? '240px' : '60px';
 
@@ -230,7 +241,7 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
                 <Divider />
 
                 <List className="flex flex-col gap-4 py-4">
-                    {routes.menu.map((props) => {
+                    {menu.map((props) => {
                         const { displayName, subitems, path, name, icon } = props;
 
                         const Icon = icon;
@@ -240,9 +251,9 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
                                 {subitems && subitems.length > 0 ? (
                                     <ListWithSubMenu {...props} />
                                 ) : (
-                                    <ListItem disablePadding>
+                                    <ListItem disablePadding onClick={() => router.push(path)}>
                                         <Tooltip placement="right" title={displayName}>
-                                            <ListItemButton className="p-0" selected={pathname === path}>
+                                            <ListItemButton className="px-0" selected={pathname === path}>
                                                 <ListItemIcon className="size-6 justify-center">
                                                     <Icon />
                                                 </ListItemIcon>
@@ -259,21 +270,33 @@ const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
             </Drawer>
 
             <BaseLayoutContent>
-                <Breadcrumbs data-testid="breadcrumb">
-                    {routes.breadcrumb.map(({ displayName, path, name }, key) => (
-                        <Box key={name}>
-                            {key === routes.breadcrumb.length - 1 ? (
-                                <Typography color="text.primary">{displayName}</Typography>
-                            ) : (
-                                <Link className="text-slate-600" href={path} key={name}>
-                                    {displayName}
-                                </Link>
-                            )}
-                        </Box>
-                    ))}
-                </Breadcrumbs>
+                {breadcrumb && (
+                    <Breadcrumbs data-testid="breadcrumb">
+                        {breadcrumb.map(({ displayName, path, name }, key) => (
+                            <Box key={name}>
+                                {key === breadcrumb.length - 1 ? (
+                                    <Typography color="text.primary">{displayName}</Typography>
+                                ) : (
+                                    <Link className="text-slate-600" href={path} key={name}>
+                                        {displayName}
+                                    </Link>
+                                )}
+                            </Box>
+                        ))}
+                    </Breadcrumbs>
+                )}
 
-                {children}
+                <Stack>
+                    {headerTitle && (
+                        <Box>
+                            <Typography fontSize={'32px'} fontWeight={'bold'}>
+                                {headerTitle}
+                            </Typography>
+                        </Box>
+                    )}
+
+                    {children}
+                </Stack>
             </BaseLayoutContent>
         </Stack>
     );

@@ -2,21 +2,16 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
-
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 import BaseLayout from '../../components/BaseLayout';
 
-import breadcrumb from './breadcrumb';
-import menu from './menu';
-
 export default function Overview() {
-    const router = useRouter();
-
     return (
-        <BaseLayout routes={{ breadcrumb, menu }}>
-            <Typography>Overview</Typography>
+        <BaseLayout headerTitle="Overview">
+            <Stack display={'flex'} width={'100%'} justifyContent={'center'}>
+                <Typography>Teste</Typography>
+            </Stack>
         </BaseLayout>
     );
 }

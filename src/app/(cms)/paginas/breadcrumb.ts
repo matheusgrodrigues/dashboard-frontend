@@ -1,14 +1,13 @@
 import { RoutesProps } from '../../../config/routes';
 import registerMenuRoutes from '../../../core/utils/routes';
 
-const menu: RoutesProps[] = [
+const breadcrumb: RoutesProps[] = [
     registerMenuRoutes({
         route: 'dashboard',
     }),
     registerMenuRoutes({
-        route: 'configuracoes',
-        subitems: ['configurar-tema'],
+        route: 'paginas',
     }),
 ];
 
-export default menu;
+export default breadcrumb;
