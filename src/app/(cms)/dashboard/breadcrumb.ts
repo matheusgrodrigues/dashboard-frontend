@@ -1,4 +1,4 @@
-import { RoutesProps } from '@/app/config/routes';
+import { RoutesProps } from '@/config/routes';
 import registerMenuRoutes from '@/core/utils/routes';
 
 const breadcrumb: RoutesProps[] = [

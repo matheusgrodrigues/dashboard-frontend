@@ -37,7 +37,7 @@ import {
 } from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
-import { RoutesProps } from '../config/routes';
+import { RoutesProps } from '../../config/routes';
 
 const ChangeLanguage: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
