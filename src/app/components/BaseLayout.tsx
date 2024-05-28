@@ -39,7 +39,7 @@ import {
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 
 import { RoutesProps } from '../../config/routes';
-import menu from '@/config/menu';
+import menu from '../../config/menu';
 
 const ChangeLanguage = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

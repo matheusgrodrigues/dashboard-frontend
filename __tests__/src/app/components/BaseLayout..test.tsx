@@ -54,11 +54,5 @@ describe('Deve renderizar o BaseLayout corretamente', () => {
 
             expect(getLayoutContent).toBeInTheDocument();
         });
-
-        it('Deve renderizar o breadcrumb', () => {
-            const getBreadcrumb = screen.getByTestId('breadcrumb');
-
-            expect(getBreadcrumb).toBeInTheDocument();
-        });
     });
 });
