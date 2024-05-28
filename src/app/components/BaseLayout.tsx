@@ -118,7 +118,7 @@ const UserMenu: React.FC = () => {
 
 interface ListWithSubMenuProps extends RoutesProps {}
 
-const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, path, subitems, icon }) => {
     const [open, setOpen] = useState(false);
 
     const Icon = icon;
@@ -126,7 +126,7 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
     return (
         <List>
             <Tooltip placement="right" title={displayName}>
-                <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemButton selected={location.pathname === path} onClick={() => setOpen(!open)}>
                     <ListItemIcon>
                         <Badge badgeContent={4} color="secondary" variant="standard">
                             <Icon className="size-6" />
@@ -142,12 +142,12 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     {subitems &&
-                        subitems.map(({ displayName, name, icon }) => {
+                        subitems.map(({ displayName, path, name, icon }) => {
                             const Icon = icon;
 
                             return (
                                 <Tooltip placement="right" key={name} title={displayName}>
-                                    <ListItemButton>
+                                    <ListItemButton selected={location.pathname === path}>
                                         <ListItemIcon>
                                             <Icon className="size-5" />
                                         </ListItemIcon>
@@ -184,6 +184,8 @@ interface BaseLayoutProps {
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
     const [open, setOpen] = useState(false);
+
+    const router = useRouter();
 
     const openCloseWidthValue = open ? '240px' : '60px';
 
@@ -228,7 +230,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
 
                 <List className="flex flex-col gap-4 py-4">
                     {routes.menu.map((props) => {
-                        const { displayName, subitems, name, icon } = props;
+                        const { displayName, subitems, path, name, icon } = props;
 
                         const Icon = icon;
 
@@ -239,7 +241,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
                                 ) : (
                                     <ListItem disablePadding>
                                         <Tooltip placement="right" title={displayName}>
-                                            <ListItemButton className="p-0">
+                                            <ListItemButton className="p-0" selected={location.pathname === path}>
                                                 <ListItemIcon className="size-6 justify-center">
                                                     <Icon />
                                                 </ListItemIcon>
