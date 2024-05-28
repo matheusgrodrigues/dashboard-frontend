@@ -39,7 +39,7 @@ import {
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 import { RoutesProps } from '../../config/routes';
 
-const ChangeLanguage: React.FC = () => {
+const ChangeLanguage = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClose = useCallback(() => setAnchorEl(null), []);
@@ -69,7 +69,7 @@ const ChangeLanguage: React.FC = () => {
     );
 };
 
-const ChangeTheme: React.FC = () => {
+const ChangeTheme = () => {
     const { toggleTheme } = useThemeToggle();
 
     return (
@@ -79,7 +79,7 @@ const ChangeTheme: React.FC = () => {
     );
 };
 
-const UserMenu: React.FC = () => {
+const UserMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const router = useRouter();
@@ -118,7 +118,7 @@ const UserMenu: React.FC = () => {
 
 interface ListWithSubMenuProps extends RoutesProps {}
 
-const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, path, subitems, icon }) => {
+const ListWithSubMenu = ({ displayName, path, subitems, icon }: ListWithSubMenuProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -169,9 +169,7 @@ interface BaseLayoutContentProps {
     children: React.ReactNode;
 }
 
-const BaseLayoutContent: React.NamedExoticComponent<BaseLayoutContentProps> = memo(function BaseLayoutContent({
-    children,
-}) {
+const BaseLayoutContent = memo(function BaseLayoutContent({ children }: BaseLayoutContentProps) {
     return (
         <Box component="main" marginTop={4} paddingX={2}>
             {children}
@@ -184,7 +182,7 @@ interface BaseLayoutProps {
     children: React.ReactNode;
 }
 
-const BaseLayout: React.FC<BaseLayoutProps> = ({ routes, children }) => {
+const BaseLayout = ({ routes, children }: BaseLayoutProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
