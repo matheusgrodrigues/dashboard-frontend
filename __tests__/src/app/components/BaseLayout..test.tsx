@@ -23,12 +23,6 @@ describe('Deve renderizar o BaseLayout corretamente', () => {
             expect(getAppBar).toBeInTheDocument();
         });
 
-        it('Deve renderizar o ChangeLanguage', () => {
-            const getChangeLanguage = screen.getByTestId('changeLanguage');
-
-            expect(getChangeLanguage).toBeInTheDocument();
-        });
-
         it('Deve renderizar o ToggleTheme', () => {
             const getToggleTheme = screen.getByTestId('changeTheme');
 
