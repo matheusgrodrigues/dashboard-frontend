@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { TextField, Button, Stack, Grid } from '@mui/material';
 import { LockClosedIcon } from '@heroicons/react/16/solid';
@@ -16,6 +17,8 @@ import formLoginRules from './rules';
 
 export default function Home() {
     const router = useRouter();
+
+    const t = useTranslations('login');
 
     const handleSubmit = (data: FieldValues) => {
         router.push(getRoute('dashboard').path);
@@ -48,21 +51,29 @@ export default function Home() {
 
                     <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
-                            <BaseField name="email">
-                                <TextField data-testid="email" type="email" label="E-mail" />
+                            <BaseField name={t('form.input.email.name')}>
+                                <TextField
+                                    data-testid={t('form.input.email.testID')}
+                                    label={t('form.input.email.label')}
+                                    type="email"
+                                />
                             </BaseField>
 
-                            <BaseField name="password">
-                                <TextField data-testid="password" type="password" label="Password" />
+                            <BaseField name={t('form.input.password.name')}>
+                                <TextField
+                                    data-testid={t('form.input.password.testID')}
+                                    label={t('form.input.password.label')}
+                                    type="password"
+                                />
                             </BaseField>
 
                             <Button
-                                data-testid="submit"
+                                data-testid={t('form.button.entrar.testID')}
                                 className="hover:bg-opacity-90 dark:bg-slate-600 font-bold p-4"
                                 variant="contained"
                                 type="submit"
                             >
-                                Entrar
+                                {t('form.button.entrar.label')}
                             </Button>
                         </Stack>
                     </BaseForm>

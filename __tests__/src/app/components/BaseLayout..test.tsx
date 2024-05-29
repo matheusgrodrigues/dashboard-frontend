@@ -5,16 +5,13 @@ import { render, screen } from '@testing-library/react';
 
 import AppRouterContextProvider from '../../../../src/core/utils/test-utils/app-router-provider';
 
-import DashboardLayout from './../../../../src/app/(cms)/dashboard/layout';
-import Dashboard from '../../../../src/app/(cms)/dashboard/page';
+import DashboardLayout from '../../../../src/app/(cms)/dashboard/layout';
 
 describe('Deve renderizar o BaseLayout corretamente', () => {
     beforeEach(() =>
         render(
             <AppRouterContextProvider router={{}}>
-                <DashboardLayout>
-                    <Dashboard />
-                </DashboardLayout>
+                <DashboardLayout>{''}</DashboardLayout>
             </AppRouterContextProvider>
         )
     );
@@ -24,12 +21,6 @@ describe('Deve renderizar o BaseLayout corretamente', () => {
             const getAppBar = screen.getByTestId('appBar');
 
             expect(getAppBar).toBeInTheDocument();
-        });
-
-        it('Deve renderizar o ChangeLanguage', () => {
-            const getChangeLanguage = screen.getByTestId('changeLanguage');
-
-            expect(getChangeLanguage).toBeInTheDocument();
         });
 
         it('Deve renderizar o ToggleTheme', () => {

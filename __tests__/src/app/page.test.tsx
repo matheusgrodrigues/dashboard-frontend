@@ -29,7 +29,7 @@ describe('Deve renderizar a pagina de login corretamente', () => {
     });
 
     it('Deve renderizar o submit', () => {
-        const getInput = screen.getByTestId('submit');
+        const getInput = screen.getByTestId('entrar');
 
         expect(getInput).toBeInTheDocument();
     });

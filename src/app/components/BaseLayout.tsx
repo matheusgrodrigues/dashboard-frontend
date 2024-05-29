@@ -35,48 +35,16 @@ import {
 import {
     ChevronDoubleLeftIcon,
     Bars3BottomLeftIcon,
-    LanguageIcon,
+    RocketLaunchIcon,
     MinusIcon,
     PlusIcon,
     SunIcon,
-    ChevronDoubleRightIcon,
-    RocketLaunchIcon,
 } from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
 
 import { RoutesProps } from '../../config/routes';
 import menu from '../../config/menu';
-
-const ChangeLanguage = () => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const handleClose = useCallback(() => setAnchorEl(null), []);
-
-    return (
-        <Box data-testid="changeLanguage" component={'span'}>
-            <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-                <LanguageIcon className="dark:text-slate-800 text-white size-6" />
-            </IconButton>
-
-            <Menu
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                onClick={handleClose}
-                open={Boolean(anchorEl)}
-            >
-                <MenuItem className="flex gap-4" onClick={handleClose}>
-                    <Typography>Português</Typography>
-                </MenuItem>
-                <MenuItem className="flex gap-4" onClick={handleClose}>
-                    <Typography>Inglês</Typography>
-                </MenuItem>
-            </Menu>
-        </Box>
-    );
-};
 
 const ChangeTheme = () => {
     const { toggleTheme } = useThemeToggle();
@@ -189,7 +157,7 @@ interface BaseLayoutContentProps {
 
 export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLayoutContentProps) => {
     return (
-        <Box data-testid="layout-content" component="main" marginTop={4} paddingX={2}>
+        <Box component="main" marginTop={4} paddingX={2}>
             {breadcrumb && (
                 <Breadcrumbs data-testid="breadcrumb">
                     {breadcrumb.map(({ displayName, path, name }, key) => (
@@ -226,7 +194,7 @@ interface ContentMemoizedProps {
 }
 
 const ContentMemoized = memo(function ContentMemoized({ children }: ContentMemoizedProps) {
-    return <>{children}</>;
+    return <Box data-testid="layout-content">{children}</Box>;
 });
 
 interface BaseLayoutProps {
@@ -265,7 +233,6 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
                         </Box>
 
                         <Box>
-                            <ChangeLanguage />
                             <ChangeTheme />
                             <UserMenu />
                         </Box>
