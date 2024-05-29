@@ -7,10 +7,11 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 
 import theme from '../config/theme';
+
+import { NextIntlClientProvider } from 'next-intl';
 
 import './globals.css';
 
@@ -27,9 +28,7 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: Readonly<RootLayoutProps>) {
-    const locale = await getLocale();
-
-    const messages = await getMessages();
+    const messages = await getMessages({ locale: 'pt-BR' });
 
     return (
         <html lang="pt-BR">

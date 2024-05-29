@@ -189,7 +189,7 @@ interface BaseLayoutContentProps {
 
 export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLayoutContentProps) => {
     return (
-        <Box data-testid="layout-content" component="main" marginTop={4} paddingX={2}>
+        <Box component="main" marginTop={4} paddingX={2}>
             {breadcrumb && (
                 <Breadcrumbs data-testid="breadcrumb">
                     {breadcrumb.map(({ displayName, path, name }, key) => (
@@ -226,7 +226,7 @@ interface ContentMemoizedProps {
 }
 
 const ContentMemoized = memo(function ContentMemoized({ children }: ContentMemoizedProps) {
-    return <>{children}</>;
+    return <Box data-testid="layout-content">{children}</Box>;
 });
 
 interface BaseLayoutProps {
