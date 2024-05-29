@@ -2,16 +2,15 @@ import React from 'react';
 
 import { AppRouterContext, AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { NextIntlClientProvider } from 'next-intl';
-
-import mockPtBR from '../../../config/messages/pages/login/pt-BR.json';
+import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
 export interface AppRouterContextProviderProps {
     children: React.ReactNode;
     router: Partial<AppRouterInstance>;
+    messages?: AbstractIntlMessages;
 }
 
-const AppRouterContextProvider = ({ children, router }: AppRouterContextProviderProps): React.ReactNode => {
+const AppRouterContextProvider = ({ children, router, messages }: AppRouterContextProviderProps): React.ReactNode => {
     const mockedRouter: AppRouterInstance = {
         prefetch: jest.fn(),
         forward: jest.fn(),
@@ -23,7 +22,7 @@ const AppRouterContextProvider = ({ children, router }: AppRouterContextProvider
     };
     return (
         <AppRouterContext.Provider value={mockedRouter}>
-            <NextIntlClientProvider locale="pt-BR" messages={mockPtBR}>
+            <NextIntlClientProvider locale="pt-BR" messages={messages}>
                 {children}
             </NextIntlClientProvider>
         </AppRouterContext.Provider>

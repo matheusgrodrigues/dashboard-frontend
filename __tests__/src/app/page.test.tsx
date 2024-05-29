@@ -5,12 +5,14 @@ import { render, screen } from '@testing-library/react';
 
 import AppRouterContextProvider from '../../../src/core/utils/test-utils/app-router-provider';
 
+import mockPtBR from '../../../src/config/messages/pages/login/pt-BR.json';
+
 import Home from '../../../src/app/page';
 
 describe('Deve renderizar a pagina de login corretamente', () => {
     beforeEach(() => {
         render(
-            <AppRouterContextProvider router={{}}>
+            <AppRouterContextProvider router={{}} messages={mockPtBR}>
                 <Home />
             </AppRouterContextProvider>
         );

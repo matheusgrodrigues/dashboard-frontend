@@ -6,6 +6,8 @@ import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 're
 
 import { usePathname, useRouter } from 'next/navigation';
 
+import { useTranslations } from 'next-intl';
+
 import {
     ListItemButton,
     ListItemIcon,
@@ -61,6 +63,8 @@ const UserMenu = () => {
 
     const router = useRouter();
 
+    const t = useTranslations('baseLayout');
+
     const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget), []);
     const handleClose = useCallback(() => setAnchorEl(null), []);
 
@@ -80,13 +84,13 @@ const UserMenu = () => {
             >
                 <MenuItem className="flex gap-4" onClick={handleClose}>
                     <Avatar className="size-6" />
-                    <Typography>Profile</Typography>
+                    <Typography>{t('userMenu.menuItem.profile')}</Typography>
                 </MenuItem>
 
                 <Divider />
 
                 <MenuItem className="flex gap-4" onClick={() => router.push('/')}>
-                    <Typography>Sair</Typography>
+                    <Typography>{t('userMenu.menuItem.sair')}</Typography>
                 </MenuItem>
             </Menu>
         </Box>
@@ -204,6 +208,8 @@ interface BaseLayoutProps {
 const BaseLayout = ({ children }: BaseLayoutProps) => {
     const [open, setOpen] = useState(false);
 
+    const t = useTranslations('baseLayout');
+
     const pathname = usePathname();
     const router = useRouter();
     const theme = useTheme();
@@ -257,7 +263,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
                     padding={2}
                     gap={2}
                 >
-                    {open && <Typography>Genese</Typography>}
+                    {open && <Typography>{t('drawer.name')}</Typography>}
                     {isMobileScreen ? <ToggleMenuButton /> : <RocketLaunchIcon className="text-blue-600 size-8" />}
                 </Box>
 
