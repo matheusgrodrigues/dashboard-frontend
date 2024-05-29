@@ -9,6 +9,9 @@ const menu: RoutesProps[] = [
         route: 'paginas',
     }),
     registerMenuRoutes({
+        category: {
+            title: 'Divider',
+        },
         route: 'menu',
     }),
     registerMenuRoutes({

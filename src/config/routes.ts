@@ -32,6 +32,9 @@ export interface RoutesProps {
             titleId?: string | undefined;
         } & React.RefAttributes<SVGSVGElement>
     >;
+    category?: {
+        title: string;
+    };
     subitems?: RoutesProps[];
 }
 

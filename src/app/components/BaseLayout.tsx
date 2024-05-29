@@ -25,6 +25,7 @@ import {
     Stack,
     Menu,
     Box,
+    ListSubheader,
 } from '@mui/material';
 
 import {
@@ -242,12 +243,14 @@ const BaseLayout = ({ headerTitle, breadcrumb, children }: BaseLayoutProps) => {
 
                 <List className="flex flex-col gap-4 py-4">
                     {menu.map((props) => {
-                        const { displayName, subitems, path, name, icon } = props;
+                        const { displayName, category, subitems, path, name, icon } = props;
 
                         const Icon = icon;
 
                         return (
                             <React.Fragment key={name}>
+                                {category && <ListSubheader className="font-bold">{category.title}</ListSubheader>}
+
                                 {subitems && subitems.length > 0 ? (
                                     <ListWithSubMenu {...props} />
                                 ) : (
