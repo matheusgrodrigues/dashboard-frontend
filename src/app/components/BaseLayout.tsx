@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import React, { useLayoutEffect, useCallback, useState, useMemo } from 'react';
+import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -217,6 +217,14 @@ export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLay
     );
 };
 
+interface ContentMemoizedProps {
+    children: React.ReactNode;
+}
+
+const ContentMemoized = memo(function ContentMemoized({ children }: ContentMemoizedProps) {
+    return <>{children}</>;
+});
+
 interface BaseLayoutProps {
     children: React.ReactNode;
 }
@@ -300,7 +308,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
                 </List>
             </Drawer>
 
-            {children}
+            <ContentMemoized>{children}</ContentMemoized>
         </Stack>
     );
 };
