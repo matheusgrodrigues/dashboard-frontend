@@ -12,11 +12,14 @@ import {
     ListItemText,
     ListItem,
     List,
+    ListSubheader,
+    useMediaQuery,
     Breadcrumbs,
     Typography,
     IconButton,
     MenuItem,
     Collapse,
+    useTheme,
     Tooltip,
     Divider,
     Toolbar,
@@ -27,7 +30,6 @@ import {
     Stack,
     Menu,
     Box,
-    ListSubheader,
 } from '@mui/material';
 
 import {
@@ -37,6 +39,8 @@ import {
     MinusIcon,
     PlusIcon,
     SunIcon,
+    ChevronDoubleRightIcon,
+    RocketLaunchIcon,
 } from '@heroicons/react/16/solid';
 
 import useThemeToggle from '../../core/hooks/useThemeToggle';
@@ -234,15 +238,31 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
 
     const pathname = usePathname();
     const router = useRouter();
+    const theme = useTheme();
+    const isMobileScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const openCloseWidthValue = open ? '240px' : '60px';
 
+    const ToggleMenuButton = () => {
+        return (
+            <IconButton className="bg-slate-600" onClick={() => setOpen(!open)}>
+                {open ? (
+                    <ChevronDoubleLeftIcon className="size-6 text-white" />
+                ) : (
+                    <Bars3BottomLeftIcon className="size-6 text-white" />
+                )}
+            </IconButton>
+        );
+    };
+
     return (
-        <Stack paddingLeft={openCloseWidthValue}>
+        <Stack paddingLeft={isMobileScreen ? '' : openCloseWidthValue}>
             <AppBar data-testid="appBar" className="dark:bg-white bg-slate-800 h-16" position="static">
                 <Toolbar>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-                        <Typography>{!open && 'Genese Dashboard'}</Typography>
+                        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2} gap={2}>
+                            <ToggleMenuButton />
+                        </Box>
 
                         <Box>
                             <ChangeLanguage />
@@ -257,22 +277,21 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
                 data-testid="drawer"
                 PaperProps={{
                     style: {
-                        width: openCloseWidthValue,
+                        width: isMobileScreen ? '' : openCloseWidthValue,
                     },
                 }}
-                variant="permanent"
+                variant={isMobileScreen ? 'temporary' : 'permanent'}
                 open={open}
             >
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} paddingY={2} gap={2}>
-                    <IconButton className="bg-slate-600" onClick={() => setOpen(!open)}>
-                        {open ? (
-                            <ChevronDoubleLeftIcon className="size-6 text-white" />
-                        ) : (
-                            <Bars3BottomLeftIcon className="size-6 text-white" />
-                        )}
-                    </IconButton>
-
-                    {open && <Typography>Genese Dashboard</Typography>}
+                <Box
+                    display={'flex'}
+                    justifyContent={open ? 'space-between' : 'center'}
+                    alignItems={'center'}
+                    padding={2}
+                    gap={2}
+                >
+                    {open && <Typography>Genese</Typography>}
+                    {isMobileScreen ? <ToggleMenuButton /> : <RocketLaunchIcon className="text-blue-600 size-8" />}
                 </Box>
 
                 <Divider />
@@ -285,7 +304,11 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
 
                         return (
                             <React.Fragment key={name}>
-                                {category && <ListSubheader className="font-bold">{category.title}</ListSubheader>}
+                                {category && (
+                                    <ListSubheader className="font-bold">
+                                        {isMobileScreen ? category.title : <Divider />}
+                                    </ListSubheader>
+                                )}
 
                                 {subitems && subitems.length > 0 ? (
                                     <ListWithSubMenu {...props} />
