@@ -60,7 +60,7 @@ const routes: RoutesProps[] = [
     {
         displayName: 'Paginas',
         name: 'paginas',
-        path: '/paginas',
+        path: '/dashboard/paginas',
         icon: DocumentIcon,
     },
     {

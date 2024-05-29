@@ -4,14 +4,16 @@ import React from 'react';
 
 import { Stack, Typography } from '@mui/material';
 
-import BaseLayout from '../../components/BaseLayout';
+import { BaseLayoutContent } from '../../components/BaseLayout';
 
-export default function Overview() {
+import breadcrumb from './breadcrumb';
+
+export default function Dashboard() {
     return (
-        <BaseLayout headerTitle="Overview">
+        <BaseLayoutContent headerTitle="Dashboard" breadcrumb={breadcrumb}>
             <Stack display={'flex'} width={'100%'} justifyContent={'center'}>
                 <Typography>Teste</Typography>
             </Stack>
-        </BaseLayout>
+        </BaseLayoutContent>
     );
 }

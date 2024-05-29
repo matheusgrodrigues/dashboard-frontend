@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 
-import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 'react';
+import React, { useLayoutEffect, useCallback, useState, useMemo } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -121,7 +123,7 @@ const UserMenu = () => {
 
 interface ListWithSubMenuProps extends RoutesProps {}
 
-const ListWithSubMenu = ({ displayName, path, subitems, icon }: ListWithSubMenuProps) => {
+const ListWithSubMenu = ({ displayName, subitems, icon }: ListWithSubMenuProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -177,23 +179,49 @@ const ListWithSubMenu = ({ displayName, path, subitems, icon }: ListWithSubMenuP
 
 interface BaseLayoutContentProps {
     children: React.ReactNode;
-}
-
-const BaseLayoutContent = memo(function BaseLayoutContent({ children }: BaseLayoutContentProps) {
-    return (
-        <Box data-testid="layout-content" component="main" marginTop={4} paddingX={2}>
-            {children}
-        </Box>
-    );
-});
-
-interface BaseLayoutProps {
-    children: React.ReactNode;
     headerTitle?: string;
     breadcrumb?: RoutesProps[];
 }
 
-const BaseLayout = ({ headerTitle, breadcrumb, children }: BaseLayoutProps) => {
+export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLayoutContentProps) => {
+    return (
+        <Box data-testid="layout-content" component="main" marginTop={4} paddingX={2}>
+            {breadcrumb && (
+                <Breadcrumbs data-testid="breadcrumb">
+                    {breadcrumb.map(({ displayName, path, name }, key) => (
+                        <Box key={name}>
+                            {key === breadcrumb.length - 1 ? (
+                                <Typography color="text.primary">{displayName}</Typography>
+                            ) : (
+                                <Link className="text-slate-600" href={path} key={name}>
+                                    {displayName}
+                                </Link>
+                            )}
+                        </Box>
+                    ))}
+                </Breadcrumbs>
+            )}
+
+            <Stack>
+                {headerTitle && (
+                    <Box>
+                        <Typography fontSize={'32px'} fontWeight={'bold'}>
+                            {headerTitle}
+                        </Typography>
+                    </Box>
+                )}
+
+                {children}
+            </Stack>
+        </Box>
+    );
+};
+
+interface BaseLayoutProps {
+    children: React.ReactNode;
+}
+
+const BaseLayout = ({ children }: BaseLayoutProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -272,35 +300,7 @@ const BaseLayout = ({ headerTitle, breadcrumb, children }: BaseLayoutProps) => {
                 </List>
             </Drawer>
 
-            <BaseLayoutContent>
-                {breadcrumb && (
-                    <Breadcrumbs data-testid="breadcrumb">
-                        {breadcrumb.map(({ displayName, path, name }, key) => (
-                            <Box key={name}>
-                                {key === breadcrumb.length - 1 ? (
-                                    <Typography color="text.primary">{displayName}</Typography>
-                                ) : (
-                                    <Link className="text-slate-600" href={path} key={name}>
-                                        {displayName}
-                                    </Link>
-                                )}
-                            </Box>
-                        ))}
-                    </Breadcrumbs>
-                )}
-
-                <Stack>
-                    {headerTitle && (
-                        <Box>
-                            <Typography fontSize={'32px'} fontWeight={'bold'}>
-                                {headerTitle}
-                            </Typography>
-                        </Box>
-                    )}
-
-                    {children}
-                </Stack>
-            </BaseLayoutContent>
+            {children}
         </Stack>
     );
 };

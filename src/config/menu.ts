@@ -22,7 +22,7 @@ const menu: RoutesProps[] = [
     }),
     registerMenuRoutes({
         route: 'configuracoes',
-        subitems: ['tema', 'integracoes'],
+        subitems: ['dashboard', 'paginas'],
     }),
 ];
 

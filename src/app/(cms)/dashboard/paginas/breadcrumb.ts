@@ -1,5 +1,5 @@
-import { RoutesProps } from '../../../config/routes';
-import registerMenuRoutes from '../../../core/utils/routes';
+import { RoutesProps } from '../../../../config/routes';
+import registerMenuRoutes from '../../../../core/utils/routes';
 
 const breadcrumb: RoutesProps[] = [
     registerMenuRoutes({

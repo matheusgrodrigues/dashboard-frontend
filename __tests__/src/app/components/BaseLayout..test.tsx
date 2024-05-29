@@ -5,13 +5,16 @@ import { render, screen } from '@testing-library/react';
 
 import AppRouterContextProvider from '../../../../src/core/utils/test-utils/app-router-provider';
 
-import Overview from '../../../../src/app/(cms)/dashboard/page';
+import DashboardLayout from './../../../../src/app/(cms)/dashboard/layout';
+import Dashboard from '../../../../src/app/(cms)/dashboard/page';
 
 describe('Deve renderizar o BaseLayout corretamente', () => {
     beforeEach(() =>
         render(
             <AppRouterContextProvider router={{}}>
-                <Overview />
+                <DashboardLayout>
+                    <Dashboard />
+                </DashboardLayout>
             </AppRouterContextProvider>
         )
     );
