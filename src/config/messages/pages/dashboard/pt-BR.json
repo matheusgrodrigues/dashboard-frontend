@@ -1,0 +1,8 @@
+{
+    "dashboard": {
+        "baseLayoutContent": {
+            "headerTitle": "Dashboard",
+            "typography": "i18n"
+        }
+    }
+}

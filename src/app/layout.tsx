@@ -11,20 +11,19 @@ import { getMessages } from 'next-intl/server';
 
 import theme from '../config/theme';
 
-import { NextIntlClientProvider } from 'next-intl';
-
 import './globals.css';
+
+import { NextIntlClientProvider } from 'next-intl';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: '',
+    title: 'Login',
     description: '',
 };
 
 interface RootLayoutProps {
     children: React.ReactNode;
-    params: { locale: string };
 }
 
 export default async function RootLayout({ children }: Readonly<RootLayoutProps>) {
@@ -36,7 +35,9 @@ export default async function RootLayout({ children }: Readonly<RootLayoutProps>
                 <AppRouterCacheProvider options={{ enableCssLayer: false }}>
                     <CssBaseline />
                     <ThemeProvider theme={theme}>
-                        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+                        <NextIntlClientProvider locale="pt-BR" messages={messages}>
+                            {children}
+                        </NextIntlClientProvider>
                     </ThemeProvider>
                 </AppRouterCacheProvider>
             </body>

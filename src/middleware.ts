@@ -1,10 +1,7 @@
-import createMiddleware from 'next-intl/middleware';
-
-export default createMiddleware({
-    locales: ['pt-BR'],
-    defaultLocale: 'pt-BR',
-});
+export default function middleware() {
+    console.log('testando middleware nextjs');
+}
 
 export const config = {
-    matcher: ['/', '/(pt-BR)/:path*'],
+    matcher: '/dashboard:path',
 };
