@@ -1,18 +1,20 @@
 'use client';
 
 import React from 'react';
-
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { TextField, Button, Stack, Grid } from '@mui/material';
-import { LockClosedIcon } from '@heroicons/react/16/solid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+
+import LockPersonIcon from '@mui/icons-material/LockPerson';
 
 import BaseField from './components/BaseField';
 import BaseForm, { FieldValues } from './components/BaseForm';
 
 import { getRoute } from '../core/utils/routes';
-
 import formLoginRules from './rules';
 
 export default function Home() {
@@ -47,7 +49,7 @@ export default function Home() {
                 }}
             >
                 <Stack padding={4} gap={4}>
-                    <LockClosedIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
+                    <LockPersonIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
                     <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
