@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 'react';
+import React, { useLayoutEffect, useCallback, useState, useMemo, memo, useContext } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -43,13 +43,13 @@ import {
     SunIcon,
 } from '@heroicons/react/16/solid';
 
-import useThemeToggle from '../../core/hooks/useThemeToggle';
-
 import { RoutesProps } from '../../config/routes';
 import menu from '../../config/menu';
 
-const ChangeTheme = () => {
-    const { toggleTheme } = useThemeToggle();
+import { ThemeProviderContext } from '../../core/utils/theme-utils/theme-provider';
+
+const ChangeTheme: React.FC = () => {
+    const { toggleTheme } = useContext(ThemeProviderContext);
 
     return (
         <IconButton data-testid="changeTheme" onClick={toggleTheme} size="large" edge="start">
@@ -58,7 +58,7 @@ const ChangeTheme = () => {
     );
 };
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const router = useRouter();
@@ -71,7 +71,13 @@ const UserMenu = () => {
     return (
         <Box data-testid="userMenu" component={'span'}>
             <IconButton onClick={handleClick}>
-                <Avatar className="bg-slate-200 text-slate-800 size-8">M</Avatar>
+                <Avatar
+                    sx={{
+                        backgorundColor: 'background.default',
+                    }}
+                >
+                    M
+                </Avatar>
             </IconButton>
 
             <Menu
@@ -99,7 +105,7 @@ const UserMenu = () => {
 
 interface ListWithSubMenuProps extends RoutesProps {}
 
-const ListWithSubMenu = ({ displayName, subitems, icon }: ListWithSubMenuProps) => {
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -159,7 +165,7 @@ interface BaseLayoutContentProps {
     breadcrumb?: RoutesProps[];
 }
 
-export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLayoutContentProps) => {
+export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, headerTitle, breadcrumb }) => {
     return (
         <Box component="main" marginTop={4} paddingX={2}>
             {breadcrumb && (
@@ -167,7 +173,7 @@ export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLay
                     {breadcrumb.map(({ displayName, path, name }, key) => (
                         <Box key={name}>
                             {key === breadcrumb.length - 1 ? (
-                                <Typography color="text.primary">{displayName}</Typography>
+                                <Typography color="text.secondary">{displayName}</Typography>
                             ) : (
                                 <Link className="text-slate-600" href={path} key={name}>
                                     {displayName}
@@ -197,7 +203,7 @@ interface ContentMemoizedProps {
     children: React.ReactNode;
 }
 
-const ContentMemoized = memo(function ContentMemoized({ children }: ContentMemoizedProps) {
+const ContentMemoized: React.NamedExoticComponent<ContentMemoizedProps> = memo(function ContentMemoized({ children }) {
     return <Box data-testid="layout-content">{children}</Box>;
 });
 
@@ -205,7 +211,7 @@ interface BaseLayoutProps {
     children: React.ReactNode;
 }
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
     const [open, setOpen] = useState(false);
 
     const t = useTranslations('baseLayout');
@@ -249,6 +255,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
             <Drawer
                 data-testid="drawer"
                 PaperProps={{
+                    className: 'overflow-x-hidden',
                     style: {
                         width: isMobileScreen ? '' : openCloseWidthValue,
                     },

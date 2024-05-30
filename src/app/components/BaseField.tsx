@@ -8,7 +8,7 @@ interface BaseFieldProps {
     type?: HTMLInputTypeAttribute;
 }
 
-const BaseField = ({ children, name, type }: BaseFieldProps) => {
+const BaseField: React.FC<BaseFieldProps> = ({ children, name, type }) => {
     const { control, formState } = useFormContext();
 
     const getHelperText = useCallback(() => {

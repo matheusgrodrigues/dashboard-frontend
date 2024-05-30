@@ -20,12 +20,15 @@ import {
 export interface BaseFormRef extends UseFormReturn<FieldValues, any, undefined> {}
 
 interface BaseFormProps extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
-    validationSchema: yup.ObjectSchema<{ [key: string]: any }>;
+    validationSchema: yup.ObjectSchema<{ [key: string]: unknown }>;
     children: React.ReactNode;
     onSubmit: SubmitHandler<any>;
 }
 
-const BaseForm = forwardRef<BaseFormRef, BaseFormProps>(({ validationSchema, onSubmit, children, ...props }, ref) => {
+const BaseForm: React.ForwardRefRenderFunction<BaseFormRef, BaseFormProps> = (
+    { validationSchema, onSubmit, children, ...props },
+    ref
+) => {
     const methods = useForm<FieldValues>({
         resolver: yupResolver(validationSchema),
     });
@@ -39,7 +42,7 @@ const BaseForm = forwardRef<BaseFormRef, BaseFormProps>(({ validationSchema, onS
             </form>
         </FormProvider>
     );
-});
+};
 
 BaseForm.displayName = 'BaseForm';
 
@@ -47,4 +50,4 @@ export type { UseFormRegisterReturn, UseFormRegister, SubmitHandler, FieldValues
 
 export { useFormContext, useForm, useController, Controller };
 
-export default BaseForm;
+export default forwardRef(BaseForm);

@@ -20,17 +20,14 @@ export default function Home() {
 
     const t = useTranslations('login');
 
-    const handleSubmit = (data: FieldValues) => {
-        router.push(getRoute('dashboard').path);
-
-        console.log('submit', data);
-    };
+    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('dashboard').path);
 
     return (
         <Grid
-            className="bg-gray-900 bg-cover bg-no-repeat"
+            className="bg-cover bg-no-repeat"
             style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+                backgroundImage:
+                    'url("https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
             }}
             justifyContent={'center'}
             alignItems={'center'}
@@ -39,12 +36,15 @@ export default function Home() {
             display={'flex'}
         >
             <Grid
-                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                className="rounded-sm border border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
                 item
                 xs={11}
                 sm={8}
                 md={6}
                 lg={3}
+                sx={{
+                    backgroundColor: 'background.default',
+                }}
             >
                 <Stack padding={4} gap={4}>
                     <LockClosedIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
@@ -69,7 +69,7 @@ export default function Home() {
 
                             <Button
                                 data-testid={t('form.button.entrar.testID')}
-                                className="hover:bg-opacity-90 dark:bg-slate-600 font-bold p-4"
+                                className="font-bold p-4"
                                 variant="contained"
                                 type="submit"
                             >
