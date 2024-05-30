@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import React, { useLayoutEffect, useCallback, useState, useMemo, memo } from 'react';
+import React, { useLayoutEffect, useCallback, useState, useMemo, memo, useContext } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -43,13 +43,13 @@ import {
     SunIcon,
 } from '@heroicons/react/16/solid';
 
-import useThemeToggle from '../../core/hooks/useThemeToggle';
-
 import { RoutesProps } from '../../config/routes';
 import menu from '../../config/menu';
 
+import { ThemeProviderContext } from '../../core/utils/theme-utils/theme-provider';
+
 const ChangeTheme: React.FC = () => {
-    const { toggleTheme } = useThemeToggle();
+    const { toggleTheme } = useContext(ThemeProviderContext);
 
     return (
         <IconButton data-testid="changeTheme" onClick={toggleTheme} size="large" edge="start">
@@ -71,7 +71,13 @@ const UserMenu: React.FC = () => {
     return (
         <Box data-testid="userMenu" component={'span'}>
             <IconButton onClick={handleClick}>
-                <Avatar className="bg-slate-200 text-slate-800 size-8">M</Avatar>
+                <Avatar
+                    sx={{
+                        backgorundColor: 'background.default',
+                    }}
+                >
+                    M
+                </Avatar>
             </IconButton>
 
             <Menu
@@ -167,7 +173,7 @@ export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, 
                     {breadcrumb.map(({ displayName, path, name }, key) => (
                         <Box key={name}>
                             {key === breadcrumb.length - 1 ? (
-                                <Typography color="text.primary">{displayName}</Typography>
+                                <Typography color="text.secondary">{displayName}</Typography>
                             ) : (
                                 <Link className="text-slate-600" href={path} key={name}>
                                     {displayName}
@@ -249,6 +255,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
             <Drawer
                 data-testid="drawer"
                 PaperProps={{
+                    className: 'overflow-x-hidden',
                     style: {
                         width: isMobileScreen ? '' : openCloseWidthValue,
                     },

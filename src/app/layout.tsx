@@ -5,15 +5,13 @@ import { Inter } from 'next/font/google';
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
 
+import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-
-import theme from '../config/theme';
 
 import './globals.css';
 
-import { NextIntlClientProvider } from 'next-intl';
+import ThemeProvider from '../core/utils/theme-utils/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,7 +32,8 @@ export default async function RootLayout({ children }: Readonly<RootLayoutProps>
             <body className={inter.className}>
                 <AppRouterCacheProvider options={{ enableCssLayer: false }}>
                     <CssBaseline />
-                    <ThemeProvider theme={theme}>
+
+                    <ThemeProvider>
                         <NextIntlClientProvider locale="pt-BR" messages={messages}>
                             {children}
                         </NextIntlClientProvider>
