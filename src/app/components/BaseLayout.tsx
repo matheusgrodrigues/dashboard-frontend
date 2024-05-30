@@ -48,7 +48,7 @@ import useThemeToggle from '../../core/hooks/useThemeToggle';
 import { RoutesProps } from '../../config/routes';
 import menu from '../../config/menu';
 
-const ChangeTheme = () => {
+const ChangeTheme: React.FC = () => {
     const { toggleTheme } = useThemeToggle();
 
     return (
@@ -58,7 +58,7 @@ const ChangeTheme = () => {
     );
 };
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const router = useRouter();
@@ -99,7 +99,7 @@ const UserMenu = () => {
 
 interface ListWithSubMenuProps extends RoutesProps {}
 
-const ListWithSubMenu = ({ displayName, subitems, icon }: ListWithSubMenuProps) => {
+const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems, icon }) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -159,7 +159,7 @@ interface BaseLayoutContentProps {
     breadcrumb?: RoutesProps[];
 }
 
-export const BaseLayoutContent = ({ children, headerTitle, breadcrumb }: BaseLayoutContentProps) => {
+export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, headerTitle, breadcrumb }) => {
     return (
         <Box component="main" marginTop={4} paddingX={2}>
             {breadcrumb && (
@@ -197,7 +197,7 @@ interface ContentMemoizedProps {
     children: React.ReactNode;
 }
 
-const ContentMemoized = memo(function ContentMemoized({ children }: ContentMemoizedProps) {
+const ContentMemoized: React.NamedExoticComponent<ContentMemoizedProps> = memo(function ContentMemoized({ children }) {
     return <Box data-testid="layout-content">{children}</Box>;
 });
 
@@ -205,7 +205,7 @@ interface BaseLayoutProps {
     children: React.ReactNode;
 }
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
     const [open, setOpen] = useState(false);
 
     const t = useTranslations('baseLayout');

@@ -20,17 +20,14 @@ export default function Home() {
 
     const t = useTranslations('login');
 
-    const handleSubmit = (data: FieldValues) => {
-        router.push(getRoute('dashboard').path);
-
-        console.log('submit', data);
-    };
+    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('dashboard').path);
 
     return (
         <Grid
             className="bg-gray-900 bg-cover bg-no-repeat"
             style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+                backgroundImage:
+                    'url("https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
             }}
             justifyContent={'center'}
             alignItems={'center'}
