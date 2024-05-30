@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 
-import LockPersonIcon from '@mui/icons-material/LockPerson';
+import LogoDevIcon from '@mui/icons-material/LogoDev';
 
 import BaseField from './components/BaseField';
 import BaseForm, { FieldValues } from './components/BaseForm';
@@ -49,7 +49,7 @@ export default function Home() {
                 }}
             >
                 <Stack padding={4} gap={4}>
-                    <LockPersonIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
+                    <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
                     <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
@@ -60,7 +60,6 @@ export default function Home() {
                                     type="email"
                                 />
                             </BaseField>
-
                             <BaseField name={t('form.input.password.name')}>
                                 <TextField
                                     data-testid={t('form.input.password.testID')}
@@ -68,7 +67,6 @@ export default function Home() {
                                     type="password"
                                 />
                             </BaseField>
-
                             <Button
                                 data-testid={t('form.button.entrar.testID')}
                                 className="font-bold p-4"
