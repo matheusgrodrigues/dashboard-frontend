@@ -2,7 +2,7 @@ import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { IconTypeMap } from '@mui/material';
 
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import PagesIcon from '@mui/icons-material/Pages';
+import HomeIcon from '@mui/icons-material/Home';
 
 export type routesName = 'dashboard' | 'paginas';
 
@@ -24,13 +24,13 @@ const routes: RoutesProps[] = [
         displayName: 'Dashboard',
         name: 'dashboard',
         path: '/dashboard',
-        icon: FileCopyIcon,
+        icon: HomeIcon,
     },
     {
         displayName: 'Paginas',
         name: 'paginas',
         path: '/dashboard/paginas',
-        icon: PagesIcon,
+        icon: FileCopyIcon,
     },
 ];
 
