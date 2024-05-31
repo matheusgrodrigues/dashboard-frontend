@@ -2,6 +2,8 @@
 
 import { useMemo } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { useTranslations } from 'next-intl';
 
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
@@ -14,8 +16,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { BaseLayoutContent } from '../../../../app/components/BaseLayout';
 
 import breadcrumb from './breadcrumb';
+import { getRoute } from '@/core/utils/routes';
 
 export default function Paginas() {
+    const router = useRouter();
+
     const t = useTranslations('paginas');
 
     const columns: GridColDef[] = useMemo(
@@ -39,7 +44,7 @@ export default function Paginas() {
                                 <Chip variant="outlined" label="Online" color="success" />
                             )}
 
-                            <IconButton>
+                            <IconButton onClick={() => router.push(`${getRoute('paginas').path}/${row.col1}`)}>
                                 <EditIcon />
                             </IconButton>
                         </Box>
@@ -49,7 +54,7 @@ export default function Paginas() {
                 width: 150,
             },
         ],
-        []
+        [router]
     );
 
     const rows: GridRowsProp = useMemo(
@@ -57,11 +62,6 @@ export default function Paginas() {
             {
                 id: 1,
                 col1: 'Home',
-                col2: '31 de maio de 2024',
-            },
-            {
-                id: 2,
-                col1: 'Contato',
                 col2: '31 de maio de 2024',
             },
         ],

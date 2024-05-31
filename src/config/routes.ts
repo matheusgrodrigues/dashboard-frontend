@@ -4,7 +4,7 @@ import { IconTypeMap } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import HomeIcon from '@mui/icons-material/Home';
 
-export type routesName = 'dashboard' | 'paginas';
+export type routesName = 'dashboard' | 'paginas' | string;
 
 export interface RoutesProps {
     displayName: string;
