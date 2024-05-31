@@ -2,58 +2,53 @@
 
 import Link from 'next/link';
 
-import React, { useLayoutEffect, useCallback, useState, useMemo, memo, useContext } from 'react';
+import React, { useLayoutEffect, useCallback, useContext, useState, useMemo, memo } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
-
 import { useTranslations } from 'next-intl';
+import { useTheme } from '@mui/material';
 
-import {
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    ListItem,
-    List,
-    ListSubheader,
-    useMediaQuery,
-    Breadcrumbs,
-    Typography,
-    IconButton,
-    MenuItem,
-    Collapse,
-    useTheme,
-    Tooltip,
-    Divider,
-    Toolbar,
-    AppBar,
-    Drawer,
-    Avatar,
-    Badge,
-    Stack,
-    Menu,
-    Box,
-} from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import {
-    ChevronDoubleLeftIcon,
-    Bars3BottomLeftIcon,
-    RocketLaunchIcon,
-    MinusIcon,
-    PlusIcon,
-    SunIcon,
-} from '@heroicons/react/16/solid';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import Collapse from '@mui/material/Collapse';
+import Tooltip from '@mui/material/Tooltip';
+import Divider from '@mui/material/Divider';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Drawer from '@mui/material/Drawer';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import Stack from '@mui/material/Stack';
+import Menu from '@mui/material/Menu';
+import Box from '@mui/material/Box';
 
-import { RoutesProps } from '../../config/routes';
-import menu from '../../config/menu';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LogoDevIcon from '@mui/icons-material/LogoDev';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import { ThemeProviderContext } from '../../core/utils/theme-utils/theme-provider';
+import { RoutesProps } from '../../config/routes';
+import menu from '../../config/menu';
 
 const ChangeTheme: React.FC = () => {
     const { toggleTheme } = useContext(ThemeProviderContext);
 
     return (
         <IconButton data-testid="changeTheme" onClick={toggleTheme} size="large" edge="start">
-            <SunIcon className="size-6 dark:text-slate-800 text-yellow-200" />
+            <LightModeIcon className="size-6 dark:text-slate-800 text-yellow-200" />
         </IconButton>
     );
 };
@@ -131,7 +126,11 @@ const ListWithSubMenu: React.FC<ListWithSubMenuProps> = ({ displayName, subitems
 
                     <ListItemText primary={displayName} />
 
-                    {open ? <MinusIcon className="size-4" /> : <PlusIcon className="size-4" />}
+                    {open ? (
+                        <RemoveCircleOutlineIcon className="size-4" />
+                    ) : (
+                        <AddCircleOutlineIcon className="size-4" />
+                    )}
                 </ListItemButton>
             </Tooltip>
 
@@ -184,9 +183,9 @@ export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, 
                 </Breadcrumbs>
             )}
 
-            <Stack>
+            <Stack paddingBottom={2} paddingTop={4} marginTop={4} paddingX={4} border={1}>
                 {headerTitle && (
-                    <Box>
+                    <Box marginBottom={2}>
                         <Typography fontSize={'32px'} fontWeight={'bold'}>
                             {headerTitle}
                         </Typography>
@@ -212,7 +211,7 @@ interface BaseLayoutProps {
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const t = useTranslations('baseLayout');
 
@@ -227,9 +226,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
         return (
             <IconButton className="bg-slate-600" onClick={() => setOpen(!open)}>
                 {open ? (
-                    <ChevronDoubleLeftIcon className="size-6 text-white" />
+                    <KeyboardDoubleArrowLeftIcon className="size-6 text-white" />
                 ) : (
-                    <Bars3BottomLeftIcon className="size-6 text-white" />
+                    <MenuIcon className="size-6 text-white" />
                 )}
             </IconButton>
         );
@@ -271,7 +270,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
                     gap={2}
                 >
                     {open && <Typography>{t('drawer.name')}</Typography>}
-                    {isMobileScreen ? <ToggleMenuButton /> : <RocketLaunchIcon className="text-blue-600 size-8" />}
+                    {isMobileScreen ? <ToggleMenuButton /> : <LogoDevIcon className="text-blue-600 size-8" />}
                 </Box>
 
                 <Divider />

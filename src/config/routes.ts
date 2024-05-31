@@ -1,37 +1,18 @@
-import React from 'react';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { IconTypeMap } from '@mui/material';
 
-import {
-    BuildingLibraryIcon,
-    BuildingStorefrontIcon,
-    WrenchScrewdriverIcon,
-    DocumentIcon,
-    EnvelopeIcon,
-    PhotoIcon,
-    CubeIcon,
-    CommandLineIcon,
-} from '@heroicons/react/16/solid';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import HomeIcon from '@mui/icons-material/Home';
 
-export type routesName =
-    | 'configurar-tema'
-    | 'configuracoes'
-    | 'integracoes'
-    | 'dashboard'
-    | 'paginas'
-    | 'midia'
-    | 'leads'
-    | 'menu'
-    | 'tema';
+export type routesName = 'dashboard' | 'paginas';
 
 export interface RoutesProps {
     displayName: string;
     name: routesName;
     path: string;
-    icon: React.ForwardRefExoticComponent<
-        Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
-            title?: string | undefined;
-            titleId?: string | undefined;
-        } & React.RefAttributes<SVGSVGElement>
-    >;
+    icon: OverridableComponent<IconTypeMap<{}, 'svg'>> & {
+        muiName: string;
+    };
     category?: {
         title: string;
     };
@@ -43,55 +24,13 @@ const routes: RoutesProps[] = [
         displayName: 'Dashboard',
         name: 'dashboard',
         path: '/dashboard',
-        icon: BuildingLibraryIcon,
-    },
-    {
-        displayName: 'Configurações',
-        name: 'configuracoes',
-        path: '/configuracoes',
-        icon: WrenchScrewdriverIcon,
-    },
-    {
-        displayName: 'Configurar Tema',
-        name: 'configurar-tema',
-        path: '/configurar-tema',
-        icon: BuildingStorefrontIcon,
+        icon: HomeIcon,
     },
     {
         displayName: 'Paginas',
         name: 'paginas',
         path: '/dashboard/paginas',
-        icon: DocumentIcon,
-    },
-    {
-        displayName: 'Leads',
-        name: 'leads',
-        path: '/leads',
-        icon: EnvelopeIcon,
-    },
-    {
-        displayName: 'Menu',
-        name: 'menu',
-        path: '/menu',
-        icon: CubeIcon,
-    },
-    {
-        displayName: 'Mídia',
-        name: 'midia',
-        path: '/midia',
-        icon: PhotoIcon,
-    },
-    {
-        displayName: 'Tema',
-        name: 'tema',
-        path: '/tema',
-        icon: PhotoIcon,
-    },
-    {
-        displayName: 'Integrações',
-        name: 'integracoes',
-        path: '/integracoes',
-        icon: CommandLineIcon,
+        icon: FileCopyIcon,
     },
 ];
 

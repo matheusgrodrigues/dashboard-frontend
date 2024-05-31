@@ -5,9 +5,6 @@ const breadcrumb: RoutesProps[] = [
     registerMenuRoutes({
         route: 'dashboard',
     }),
-    registerMenuRoutes({
-        route: 'configuracoes',
-    }),
 ];
 
 export default breadcrumb;

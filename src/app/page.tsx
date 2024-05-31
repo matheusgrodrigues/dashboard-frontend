@@ -1,18 +1,20 @@
 'use client';
 
 import React from 'react';
-
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { TextField, Button, Stack, Grid } from '@mui/material';
-import { LockClosedIcon } from '@heroicons/react/16/solid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+
+import LogoDevIcon from '@mui/icons-material/LogoDev';
 
 import BaseField from './components/BaseField';
 import BaseForm, { FieldValues } from './components/BaseForm';
 
 import { getRoute } from '../core/utils/routes';
-
 import formLoginRules from './rules';
 
 export default function Home() {
@@ -20,7 +22,7 @@ export default function Home() {
 
     const t = useTranslations('login');
 
-    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('dashboard').path);
+    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('paginas').path);
 
     return (
         <Grid
@@ -47,7 +49,7 @@ export default function Home() {
                 }}
             >
                 <Stack padding={4} gap={4}>
-                    <LockClosedIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
+                    <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
                     <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
@@ -58,7 +60,6 @@ export default function Home() {
                                     type="email"
                                 />
                             </BaseField>
-
                             <BaseField name={t('form.input.password.name')}>
                                 <TextField
                                     data-testid={t('form.input.password.testID')}
@@ -66,7 +67,6 @@ export default function Home() {
                                     type="password"
                                 />
                             </BaseField>
-
                             <Button
                                 data-testid={t('form.button.entrar.testID')}
                                 className="font-bold p-4"
