@@ -22,7 +22,7 @@ export default function Home() {
 
     const t = useTranslations('login');
 
-    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('dashboard').path);
+    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('paginas').path);
 
     return (
         <Grid

@@ -183,9 +183,9 @@ export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, 
                 </Breadcrumbs>
             )}
 
-            <Stack>
+            <Stack paddingBottom={2} paddingTop={4} marginTop={4} paddingX={4} border={1}>
                 {headerTitle && (
-                    <Box>
+                    <Box marginBottom={2}>
                         <Typography fontSize={'32px'} fontWeight={'bold'}>
                             {headerTitle}
                         </Typography>
