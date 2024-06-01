@@ -1,8 +1,8 @@
 import { RoutesProps } from '../../../config/routes';
-import registerMenuRoutes from '../../../core/utils/routes';
+import registerRoute from '../../../core/utils/routes';
 
 const breadcrumb: RoutesProps[] = [
-    registerMenuRoutes({
+    registerRoute({
         route: 'dashboard',
     }),
 ];

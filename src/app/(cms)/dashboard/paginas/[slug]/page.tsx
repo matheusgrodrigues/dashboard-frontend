@@ -1,8 +1,11 @@
+import Link from 'next/link';
+
 import { BaseLayoutContent } from '../../../../../app/components/BaseLayout';
-import registerMenuRoutes, { getRoute } from '../../../../../core/utils/routes';
+import { getRoute } from '../../../../../core/utils/routes';
+
+import useRegisterDynamicBreadcrumbRoute from '@/core/utils/hooks/useRegisterDynamicBreadcrumbRoute';
 
 import breadcrumb from './breadcrumb';
-import Link from 'next/link';
 
 export const dynamicParams = false;
 
@@ -26,23 +29,14 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
-    // TODO: Criar uma função para ajustar o breadcrumb neste cenário em que precisa adicionar uma nova rota a lista atual.
-    // Abaixo um modelo de teste mais ou menos para basear, melhorar este código.
-    // registerMenuRoutes -> registerBreadcrumbRoutes
-
-    const bread = breadcrumb;
-
-    let newRoute = registerMenuRoutes({
-        route: 'paginas',
+    const dynamicBreadcrumb = useRegisterDynamicBreadcrumbRoute({
+        originalRoutes: breadcrumb,
+        rootSlug: 'paginas',
+        slug: params.slug,
     });
 
-    newRoute.displayName = params.slug;
-    newRoute.path = `${getRoute('paginas').path}/${params.slug}`;
-
-    !bread.includes(newRoute) && bread.push(newRoute);
-
     return (
-        <BaseLayoutContent headerTitle={params.slug} breadcrumb={bread}>
+        <BaseLayoutContent headerTitle={params.slug} breadcrumb={dynamicBreadcrumb.breadcrumb}>
             {params.slug}
 
             <Link href={`${getRoute('paginas').path}`}>Voltar</Link>
