@@ -31,8 +31,7 @@ interface PageProps {
 export default function Page({ params }: PageProps) {
     const dynamicBreadcrumb = useRegisterDynamicBreadcrumbRoute({
         originalRoutes: breadcrumb,
-        rootSlug: 'paginas',
-        slug: params.slug,
+        slug: [params.slug],
     });
 
     return (
