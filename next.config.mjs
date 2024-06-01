@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
     experimental: {
         forceSwcTransforms: true,
+        typedRoutes: false,
     },
 };
 
