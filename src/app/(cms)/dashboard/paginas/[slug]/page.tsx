@@ -8,76 +8,11 @@ import { getRoute } from '../../../../../core/utils/routes';
 import useRegisterDynamicBreadcrumbRoute from '@/core/utils/hooks/useRegisterDynamicBreadcrumbRoute';
 
 import breadcrumb from './breadcrumb';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+
+import { fakePage } from '../tempData';
 
 export const dynamicParams = false;
-
-type PageSectionName = 'header-section';
-type ComponentName = 'heading-component';
-type PageName = 'home-page';
-type PageType = 'page';
-
-type SeoPageProps = {
-    description: string;
-    title: string;
-};
-
-type PageSection = {
-    displayName: string;
-    components: Component[];
-    isActive: boolean;
-    id: number;
-    type: PageSectionName;
-    name: string;
-};
-
-type Component = {
-    displayName: string;
-    isActive: boolean;
-    name: string;
-    type: ComponentName;
-    id: number;
-};
-
-type Page = {
-    displayName: string;
-    sections: PageSection[];
-    isActive: boolean;
-    name: PageName;
-    type: PageType;
-    seo: SeoPageProps;
-    id: number;
-};
-
-const fakePage: Page = {
-    displayName: 'Home Page',
-    isActive: true,
-    name: 'home-page',
-    type: 'page',
-    seo: {
-        description: 'Description',
-        title: 'Title',
-    },
-    id: 1,
-    sections: [
-        {
-            displayName: 'Header',
-            components: [
-                {
-                    displayName: 'Titulo Principal',
-                    isActive: true,
-                    name: 'titulo-principal',
-                    type: 'heading-component',
-                    id: 1,
-                },
-            ],
-            isActive: true,
-            name: 'header',
-            type: 'header-section',
-            id: 1,
-        },
-    ],
-};
 
 export const generateStaticParams = () => [fakePage].map((page) => page);
 
@@ -97,15 +32,31 @@ export default function Page({ params }: PageProps) {
         <BaseLayoutContent headerTitle={params.slug} breadcrumb={dynamicBreadcrumb.breadcrumb}>
             {fakePage.type === 'page' && (
                 <Stack>
+                    <Typography variant="h5">Seções: {fakePage.sections.length}</Typography>
+
                     {fakePage.sections.map((section) => {
                         return (
                             <React.Fragment key={section.id}>
-                                <p>{section.displayName}</p>
+                                <ul>
+                                    <li>
+                                        <p className="font-bold">
+                                            Seção: {section.displayName}
+                                            <p className="font-normal">Components: {section.components.length}</p>
+                                        </p>
+                                    </li>
+                                </ul>
 
                                 {section.components.map((component) => {
                                     return (
                                         <React.Fragment key={component.id}>
-                                            <p>{component.displayName}</p>
+                                            <ul>
+                                                <li>
+                                                    <p className="font-bold">
+                                                        Component: {component.displayName}
+                                                        <p className="font-normal">Value: {component.value}</p>
+                                                    </p>
+                                                </li>
+                                            </ul>
                                         </React.Fragment>
                                     );
                                 })}
