@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useLayoutEffect, useMemo } from 'react';
 
-import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider as MUIThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
 
 import getTheme from '../../../config/theme';
 
@@ -21,7 +21,8 @@ interface ThemeProviderProps {
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const [mode, setMode] = React.useState<Theme>('light');
 
-    const theme = useMemo(() => createTheme(getTheme(mode)), [mode]);
+    let theme = useMemo(() => createTheme(getTheme(mode)), [mode]);
+    theme = responsiveFontSizes(theme);
 
     const toggleTheme = useCallback(() => {
         setMode((prevMode) => {
