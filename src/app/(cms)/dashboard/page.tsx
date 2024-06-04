@@ -16,7 +16,7 @@ export default function Dashboard() {
     return (
         <BaseLayoutContent headerTitle={t('baseLayoutContent.headerTitle')} breadcrumb={breadcrumb}>
             <Stack display={'flex'} width={'100%'} justifyContent={'center'}>
-                <Typography>{t('baseLayoutContent.typography')}</Typography>
+                <Typography variant="h2">{t('baseLayoutContent.typography')}</Typography>
             </Stack>
         </BaseLayoutContent>
     );

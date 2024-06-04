@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Link from 'next/link';
 
 import { BaseLayoutContent } from '../../../../../app/components/BaseLayout';
@@ -6,21 +8,13 @@ import { getRoute } from '../../../../../core/utils/routes';
 import useRegisterDynamicBreadcrumbRoute from '@/core/utils/hooks/useRegisterDynamicBreadcrumbRoute';
 
 import breadcrumb from './breadcrumb';
+import { Stack, Typography } from '@mui/material';
+
+import { fakePage } from '../tempData';
 
 export const dynamicParams = false;
 
-export const generateStaticParams = () => {
-    const mockPages = [
-        {
-            id: '1',
-            nome: 'Home',
-            atividade: '31 de maio de 2024',
-            status: 'Online',
-        },
-    ];
-
-    return mockPages.map((page) => page);
-};
+export const generateStaticParams = () => [fakePage].map((page) => page);
 
 interface PageProps {
     params: {
@@ -36,7 +30,41 @@ export default function Page({ params }: PageProps) {
 
     return (
         <BaseLayoutContent headerTitle={params.slug} breadcrumb={dynamicBreadcrumb.breadcrumb}>
-            {params.slug}
+            {fakePage.type === 'page' && (
+                <Stack>
+                    <Typography variant="h5">Seções: {fakePage.sections.length}</Typography>
+
+                    {fakePage.sections.map((section) => {
+                        return (
+                            <React.Fragment key={section.id}>
+                                <ul>
+                                    <li>
+                                        <p className="font-bold">
+                                            Seção: {section.displayName}
+                                            <p className="font-normal">Components: {section.components.length}</p>
+                                        </p>
+                                    </li>
+                                </ul>
+
+                                {section.components.map((component) => {
+                                    return (
+                                        <React.Fragment key={component.id}>
+                                            <ul>
+                                                <li>
+                                                    <p className="font-bold">
+                                                        Component: {component.displayName}
+                                                        <p className="font-normal">Value: {component.value}</p>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </React.Fragment>
+                                    );
+                                })}
+                            </React.Fragment>
+                        );
+                    })}
+                </Stack>
+            )}
 
             <Link href={`${getRoute('paginas').path}`}>Voltar</Link>
         </BaseLayoutContent>

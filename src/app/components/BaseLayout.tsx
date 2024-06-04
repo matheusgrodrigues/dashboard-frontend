@@ -172,10 +172,12 @@ export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, 
                     {breadcrumb.map(({ displayName, path, name }, key) => (
                         <Box key={name}>
                             {key === breadcrumb.length - 1 ? (
-                                <Typography color="text.secondary">{displayName}</Typography>
+                                <Typography className="capitalize" color="text.secondary">
+                                    {displayName.replace('-', ' ')}
+                                </Typography>
                             ) : (
-                                <Link className="text-slate-600" href={path} key={name}>
-                                    {displayName}
+                                <Link className="text-slate-600 capitalize" href={path} key={name}>
+                                    {displayName.replace('-', ' ')}
                                 </Link>
                             )}
                         </Box>
@@ -186,8 +188,8 @@ export const BaseLayoutContent: React.FC<BaseLayoutContentProps> = ({ children, 
             <Stack paddingBottom={2} paddingTop={4} marginTop={4} paddingX={4} border={1}>
                 {headerTitle && (
                     <Box marginBottom={2}>
-                        <Typography fontSize={'32px'} fontWeight={'bold'}>
-                            {headerTitle}
+                        <Typography textTransform={'capitalize'} variant="h5" fontSize={'32px'} fontWeight={'bold'}>
+                            {headerTitle.replace('-', ' ')}
                         </Typography>
                     </Box>
                 )}
@@ -299,7 +301,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
                                                     <Icon />
                                                 </ListItemIcon>
 
-                                                {open && <ListItemText primary={displayName} />}
+                                                {open && (
+                                                    <ListItemText
+                                                        sx={{
+                                                            fontFamily: '"Rubik", sans-serif',
+                                                        }}
+                                                        primary={displayName}
+                                                    />
+                                                )}
                                             </ListItemButton>
                                         </Tooltip>
                                     </ListItem>
