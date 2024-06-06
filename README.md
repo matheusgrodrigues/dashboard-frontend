@@ -14,8 +14,6 @@ Além disso, o dashboard serve como um ponto central para demonstrar as melhores
 -   [Tecnologias Utilizadas](#tecnologias-utilizadas)
     -   [Frontend](#frontend)
     -   [Bibliotecas](#bibliotecas)
-    -   [Infraestrutura](#infraestrutura)
-    -   [Deploy e Hospedagem](#deploy-e-hospedagem)
     -   [Versionamento](#versionamento)
     -   [Testes](#testes)
     -   [Prototipação](#prototipacao)
