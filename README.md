@@ -1,31 +1,92 @@
-## Visao Geral
+# G-Dashboard 🚀
 
-O propósito primário do dashboard é servir como um projeto modelo e um ponto de partida para o desenvolvimento de novos sistemas de gerenciamento de software.
+O propósito primário deste dashboard é servir como um projeto modelo e um ponto de partida para o desenvolvimento de novos sistemas de gerenciamento de conteudo (cms) para meus projetos. 
 
-Ele é concebido para oferecer uma estrutura sólida e um conjunto de funcionalidades padrão que podem ser facilmente estendidas e personalizadas para atender às necessidades específicas de diferentes projetos de software.
+Ele é concebido para oferecer uma estrutura sólida e um conjunto de funcionalidades padrão que podem ser facilmente estendidas e personalizadas para atender às necessidades específicas de diferentes projetos.
 
-Ao fornecer um conjunto abrangente de funcionalidades default, o dashboard reduz significativamente o tempo e os recursos necessários para iniciar novos projetos, eliminando a necessidade de começar do zero a cada vez.
+Ao fornecer um conjunto abrangente de funcionalidades default, o dashboard reduz significativamente o tempo e os recursos necessários para iniciar novos projetos, eliminando a necessidade de começar do zero a cada vez. 
 
-Ele oferece uma base sólida e consistente, que pode ser adaptada e expandida conforme necessário, permitindo que as equipes de desenvolvimento se concentrem mais na implementação de recursos exclusivos e menos na infraestrutura básica.
+Ele oferece uma base sólida e consistente, que pode ser adaptada e expandida conforme necessário, permitindo que os esforços se concentrem mais na implementação de recursos exclusivos e menos na infraestrutura básica.
 
-Além disso, o dashboard serve como um ponto central para demonstrar as melhores práticas de desenvolvimento, padrões de design e técnicas de implementação, promovendo a consistência e a eficiência em todo o processo de desenvolvimento de software na empresa.
+Além disso, o dashboard serve como um ponto central para demonstrar as melhores práticas de desenvolvimento, padrões de design e técnicas de implementação, promovendo a consistência e a eficiência em todo o processo de desenvolvimento. 
 
-## Finalidade
+-   [Screenshots](#screenshots)
+-   [Tecnologias Utilizadas](#tecnologias-utilizadas)
+    -   [Frontend](#frontend)
+    -   [Bibliotecas](#bibliotecas)
+    -   [Infraestrutura](#infraestrutura)
+    -   [Deploy e Hospedagem](#deploy-e-hospedagem)
+    -   [Versionamento](#versionamento)
+    -   [Testes](#testes)
+    -   [Prototipação](#prototipacao)
+    -   [Documentação](#documentacao)
+-   [Instruções de Instalação](#instrucoes-de-instalacao)
+-   [Como Usar](#como-usar)
+-   [Contribuição](#contribuicao)
+-   [Licença](#licenca)
 
-O objetivo central deste dashboard é fornecer uma base robusta e consistente para iniciar novos projetos de software, reduzindo o tempo e os recursos necessários para desenvolver infraestrutura básica repetidamente. Ao oferecer um conjunto abrangente de funcionalidades padrão, ele permite que as equipes de desenvolvimento se concentrem mais na implementação de recursos exclusivos e menos na construção de elementos básicos do sistema.
+## Screenshots
 
-## Escopo
+- Em andamento.
+- 
+## Tecnologias Utilizadas
 
-O escopo deste dashboard inclui uma variedade de funcionalidades essenciais para sistemas de gerenciamento de software, como:
+- Clean Code
+- Clean Achitecture
+  
+### Frontend
 
--   EM BREVE
--   EM BREVE
--   EM BREVE
+-   HTML5
+-   CSS3
+-   TypeScript
+-   React/Next.js
 
-Ele fornece uma base sólida para o desenvolvimento de aplicativos web escaláveis e de alto desempenho, adaptáveis a uma ampla gama de casos de uso.
+### Bibliotecas
 
-## Publico Alvo
+-   React Hook Form
+-   MUI
+-   Tailwind
 
-O público-alvo deste dashboard inclui equipes de desenvolvimento de software, arquitetos de sistemas, gerentes de projeto e qualquer pessoa envolvida no processo de construção de aplicativos web em ambientes de fábrica de software.
+### Infraestrutura
 
-Ele é destinado a ser usado por profissionais com conhecimento em desenvolvimento web e que buscam uma solução reutilizável e eficiente para acelerar o desenvolvimento de novos projetos de software.
+-   Docker
+
+### Testes
+
+-   Jest
+-   React Testing Library
+-   BDD/TDD
+
+### Documentacao
+
+-   Jira
+-   Confluence
+
+## Instrucoes de Instalacao
+
+1. Clone o repositório para sua máquina local usando o seguinte comando:
+
+    > git clone https://github.com/matheusgrodrigues/dashboard-frontend.git
+
+2. Navegue até o diretório do projeto:
+
+    > cd portfolio
+
+3. Inicie um servidor local para visualizar o portfólio.
+
+    > yarn dev ou yarn start
+
+4. Abra o navegador e visualize o portfolio na porta 3000
+    > http://localhost:3000
+
+## Como Usar
+
+Este projeto é simples de usar. Basta acessar as rotas disponíveis que podem ser visualizadas dentro da pasta `app`.
+
+## Contribuicao
+
+Sinta-se a vontade para contribuir enviando um pull request.
+
+## Licenca
+
+MIT License.
