@@ -2,7 +2,7 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { BaseLayoutContent } from '../../../../../app/components/BaseLayout';
+import { BaseLayoutContent } from '../../../../../components/BaseLayout';
 import { getRoute } from '../../../../../core/utils/routes';
 
 import useRegisterDynamicBreadcrumbRoute from '@/core/utils/hooks/useRegisterDynamicBreadcrumbRoute';

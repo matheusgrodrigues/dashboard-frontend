@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 
 import EditIcon from '@mui/icons-material/Edit';
 
-import { BaseLayoutContent } from '../../../../app/components/BaseLayout';
+import { BaseLayoutContent } from '../../../../components/BaseLayout';
 
 import breadcrumb from './breadcrumb';
 import { getRoute } from '@/core/utils/routes';

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 import React from 'react';
 
-import BaseLayout from '../../components/BaseLayout';
+import BaseLayout from '../../../components/BaseLayout';
 
 export const metadata: Metadata = {
     title: 'Overview',

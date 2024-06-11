@@ -39,9 +39,9 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { ThemeProviderContext } from '../../core/utils/theme-utils/theme-provider';
-import { RoutesProps } from '../../config/routes';
-import menu from '../../config/menu';
+import { ThemeProviderContext } from '../core/utils/theme-utils/theme-provider';
+import { RoutesProps } from '../config/routes';
+import menu from '../config/menu';
 
 const ChangeTheme: React.FC = () => {
     const { toggleTheme } = useContext(ThemeProviderContext);

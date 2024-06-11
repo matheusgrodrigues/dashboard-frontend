@@ -6,7 +6,7 @@ import { Stack, Typography } from '@mui/material';
 
 import { useTranslations } from 'next-intl';
 
-import { BaseLayoutContent } from '../../components/BaseLayout';
+import { BaseLayoutContent } from '../../../components/BaseLayout';
 
 import breadcrumb from './breadcrumb';
 
