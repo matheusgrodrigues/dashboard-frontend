@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseField from './components/BaseField';
-import BaseForm, { FieldValues } from './components/BaseForm';
+import BaseField from '../components/BaseField';
+import BaseForm, { FieldValues } from '../components/BaseForm';
 
 import { getRoute } from '../core/utils/routes';
 import formLoginRules from './rules';
