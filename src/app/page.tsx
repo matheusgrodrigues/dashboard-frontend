@@ -12,17 +12,30 @@ import Grid from '@mui/material/Grid';
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
 import BaseField from '../components/BaseField';
-import BaseForm, { FieldValues } from '../components/BaseForm';
+import BaseForm, { SubmitHandler } from '../components/BaseForm';
 
 import { getRoute } from '../core/utils/routes';
+import { loginAction } from './actions';
+
 import formLoginRules from './rules';
+
+interface InitialLoginValues {
+    email: string;
+    password: string;
+}
 
 export default function Home() {
     const router = useRouter();
 
     const t = useTranslations('login');
 
-    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('paginas').path);
+    const handleSubmit: SubmitHandler<InitialLoginValues> = async (data) => {
+        const login = await loginAction(data);
+
+        if (login) {
+            router.push(getRoute('paginas').path);
+        }
+    };
 
     return (
         <Grid
