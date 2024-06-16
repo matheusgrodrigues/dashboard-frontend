@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useActionState, useOptimistic, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -11,19 +11,13 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseForm from '../components/BaseForm';
+import BaseField from '../components/BaseField';
+import BaseForm, { SubmitHandler } from '../components/BaseForm';
 
 import { getRoute } from '../core/utils/routes';
-import { loginAction, loginActionV2 } from './actions';
+import { loginAction } from './actions';
 
 import formLoginRules from './rules';
-import { useFormState, useFormStatus } from 'react-dom';
-
-const Enviando: React.FC = () => {
-    const { pending } = useFormStatus();
-
-    return <p style={{ color: 'white' }}>{pending && 'Enviando...'}</p>;
-};
 
 interface InitialLoginValues {
     email: string;
@@ -31,26 +25,18 @@ interface InitialLoginValues {
 }
 
 export default function Home() {
+    const router = useRouter();
+
     const t = useTranslations('login');
 
-    const [message, setMessage] = useState({
-        text: 'Optmistic Message',
-        sending: false,
-    });
+    const handleSubmit: SubmitHandler<InitialLoginValues> = async (data) => {
+        const login = await loginAction(data);
 
-    const [optmisticMessage, addOptimisticMessage] = useOptimistic<typeof message, string>(
-        message,
-        (currentState, newState) => ({
-            ...currentState,
-            text: newState,
-            sending: true,
-        })
-    );
+        if (login) {
+            router.push(getRoute('paginas').path);
+        }
+    };
 
-    // TODO: quando lançar o react 19, mudar para useActionState
-    const [state, formAction] = useFormState(loginActionV2, null);
-
-    console.log(state);
     return (
         <Grid
             className="bg-cover bg-no-repeat"
@@ -78,21 +64,22 @@ export default function Home() {
                 <Stack padding={4} gap={4}>
                     <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-                    <form action={formAction}>
+                    <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
-                            <TextField
-                                data-testid={t('form.input.email.testID')}
-                                label={t('form.input.email.label')}
-                                name={t('form.input.email.name')}
-                                type="email"
-                            />
-                            <TextField
-                                data-testid={t('form.input.password.testID')}
-                                label={t('form.input.password.label')}
-                                name={t('form.input.password.name')}
-                                type="password"
-                            />
-
+                            <BaseField name={t('form.input.email.name')}>
+                                <TextField
+                                    data-testid={t('form.input.email.testID')}
+                                    label={t('form.input.email.label')}
+                                    type="email"
+                                />
+                            </BaseField>
+                            <BaseField name={t('form.input.password.name')}>
+                                <TextField
+                                    data-testid={t('form.input.password.testID')}
+                                    label={t('form.input.password.label')}
+                                    type="password"
+                                />
+                            </BaseField>
                             <Button
                                 data-testid={t('form.button.entrar.testID')}
                                 className="font-bold p-4"
@@ -101,15 +88,8 @@ export default function Home() {
                             >
                                 {t('form.button.entrar.label')}
                             </Button>
-
-                            <p style={{ color: 'white' }}>
-                                {optmisticMessage.text}
-                                {optmisticMessage.sending && <small>Sending...</small>}
-                            </p>
-
-                            <Enviando />
                         </Stack>
-                    </form>
+                    </BaseForm>
                 </Stack>
             </Grid>
         </Grid>
