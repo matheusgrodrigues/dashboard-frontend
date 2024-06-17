@@ -34,12 +34,18 @@ const BaseField: React.FC<BaseFieldProps> = ({ render }) => {
         }
     }, [getStateErrors, checkHasError, render]);
 
+    const updateErrorMessage: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+        e.preventDefault();
+        e.currentTarget.form?.requestSubmit();
+    }, []);
+
     return (
         <>
             {checkHasError()
                 ? React.cloneElement(render, {
                       ...render.props,
                       helperText: getHelperText(),
+                      onChange: updateErrorMessage,
                       error: true,
                   })
                 : React.cloneElement(render, {

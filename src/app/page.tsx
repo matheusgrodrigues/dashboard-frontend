@@ -10,9 +10,9 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseButtonFormServer from '../components/BaseButton';
-import BaseFieldServer from '../components/BaseField';
-import BaseFormServer from '../components/BaseForm';
+import BaseButton from '../components/BaseButton';
+import BaseField from '../components/BaseField';
+import BaseForm from '../components/BaseForm';
 
 import { loginAction } from './actions';
 
@@ -46,9 +46,9 @@ export default function Home() {
                 <Stack padding={4} gap={4}>
                     <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-                    <BaseFormServer initialState={null} formAction={loginAction}>
+                    <BaseForm initialState={null} formAction={loginAction}>
                         <Stack gap={4}>
-                            <BaseFieldServer
+                            <BaseField
                                 render={
                                     <TextField
                                         data-testid={t('form.input.email.testID')}
@@ -59,7 +59,7 @@ export default function Home() {
                                 }
                             />
 
-                            <BaseFieldServer
+                            <BaseField
                                 render={
                                     <TextField
                                         data-testid={t('form.input.password.testID')}
@@ -70,7 +70,7 @@ export default function Home() {
                                 }
                             />
 
-                            <BaseButtonFormServer
+                            <BaseButton
                                 render={
                                     <Button
                                         data-testid={t('form.button.entrar.testID')}
@@ -83,7 +83,7 @@ export default function Home() {
                                 }
                             />
                         </Stack>
-                    </BaseFormServer>
+                    </BaseForm>
                 </Stack>
             </Grid>
         </Grid>

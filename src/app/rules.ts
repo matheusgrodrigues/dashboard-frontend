@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const formLoginServerRules = z.object({
+const formLoginRules = z.object({
     email: z
         .string({
             invalid_type_error: 'Email inválido',
@@ -13,4 +13,4 @@ const formLoginServerRules = z.object({
         .min(4),
 });
 
-export default formLoginServerRules;
+export default formLoginRules;
