@@ -1,19 +1,19 @@
 import React, { useCallback, useContext } from 'react';
 
-import { BaseFormServerContext } from './BaseFormServer';
+import { BaseFormContext } from './BaseForm';
 
-export type BaseFieldServerError = {
+export type BaseFieldError = {
     errors: { [key: string]: [string] };
 };
 
-interface BaseFieldServerProps {
+interface BaseFieldProps {
     render: React.ReactElement;
 }
 
-const BaseFieldServer: React.FC<BaseFieldServerProps> = ({ render }) => {
-    const { state } = useContext(BaseFormServerContext);
+const BaseField: React.FC<BaseFieldProps> = ({ render }) => {
+    const { state } = useContext(BaseFormContext);
 
-    const getStateErrors = state as BaseFieldServerError;
+    const getStateErrors = state as BaseFieldError;
 
     const checkHasError = useCallback(
         () =>
@@ -49,4 +49,4 @@ const BaseFieldServer: React.FC<BaseFieldServerProps> = ({ render }) => {
     );
 };
 
-export default BaseFieldServer;
+export default BaseField;

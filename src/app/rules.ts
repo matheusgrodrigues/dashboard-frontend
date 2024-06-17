@@ -1,16 +1,16 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 
-yup.setLocale({
-    mixed: {
-        required: '${path} é um campo obrigatório.',
-    },
+const formLoginServerRules = z.object({
+    email: z
+        .string({
+            invalid_type_error: 'Email inválido',
+        })
+        .min(4),
+    password: z
+        .string({
+            invalid_type_error: 'Password inválido',
+        })
+        .min(4),
 });
 
-import regex from '@/core/utils/regex';
-
-const formLoginRules = yup.object({
-    password: yup.string().required(),
-    email: yup.string().required().matches(regex.email, 'E-mail inválido'),
-});
-
-export default formLoginRules;
+export default formLoginServerRules;

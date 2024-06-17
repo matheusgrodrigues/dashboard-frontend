@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFormStatus } from 'react-dom';
 
-interface BaseButtonFormServerProps {
+interface BaseButtonProps {
     render: React.ReactElement;
 }
 
-const BaseButtonFormServer: React.FC<BaseButtonFormServerProps> = ({ render }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ render }) => {
     const { pending } = useFormStatus();
 
     return (
@@ -18,4 +18,4 @@ const BaseButtonFormServer: React.FC<BaseButtonFormServerProps> = ({ render }) =
     );
 };
 
-export default BaseButtonFormServer;
+export default BaseButton;

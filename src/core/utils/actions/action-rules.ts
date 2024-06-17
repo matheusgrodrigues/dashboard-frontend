@@ -2,15 +2,13 @@
 
 import { ZodObject, ZodRawShape } from 'zod';
 
-interface ValidateFormServerSchemaProps {
-    formDataEntryValue: Record<string, FormDataEntryValue>;
+interface ValidateFormRulesProps {
+    payload: Record<string, FormDataEntryValue>;
     rules: ZodObject<ZodRawShape>;
 }
 
-const validateFormServerRules = async ({ formDataEntryValue, rules }: ValidateFormServerSchemaProps) => {
-    const validatedFields = rules.safeParse({
-        email: formDataEntryValue.email,
-    });
+export const validateFormRules = async ({ payload, rules }: ValidateFormRulesProps) => {
+    const validatedFields = rules.safeParse(payload);
 
     if (!validatedFields.success) {
         return {
@@ -18,5 +16,3 @@ const validateFormServerRules = async ({ formDataEntryValue, rules }: ValidateFo
         };
     }
 };
-
-export default validateFormServerRules;
