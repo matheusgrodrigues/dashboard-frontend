@@ -2,12 +2,18 @@
 
 import { FieldValues } from 'react-hook-form';
 
-export const loginAction = async (data: FieldValues) => {
+import validateFormServerRules from '../core/utils/actions/action-rules';
+
+import formLoginRules from './rules';
+
+export const loginClientAction = async (data: FieldValues) => {
     return data;
 };
 
-export const loginActionV2 = async (prevState: unknown, queryData: FormData) => {
+export const loginServerAction = async (prevState: unknown, queryData: FormData) => {
     const data = Object.fromEntries(queryData);
 
-    return data;
+    const validateRules = validateFormServerRules({ formDataEntryValue: data, rules: formLoginRules });
+
+    return validateRules ?? data;
 };

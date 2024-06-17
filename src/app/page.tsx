@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useActionState, useOptimistic, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useFormStatus } from 'react-dom';
 import { useTranslations } from 'next-intl';
 
 import TextField from '@mui/material/TextField';
@@ -11,46 +11,15 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseForm from '../components/BaseForm';
+import { loginServerAction } from './actions';
 
-import { getRoute } from '../core/utils/routes';
-import { loginAction, loginActionV2 } from './actions';
-
-import formLoginRules from './rules';
-import { useFormState, useFormStatus } from 'react-dom';
-
-const Enviando: React.FC = () => {
-    const { pending } = useFormStatus();
-
-    return <p style={{ color: 'white' }}>{pending && 'Enviando...'}</p>;
-};
-
-interface InitialLoginValues {
-    email: string;
-    password: string;
-}
+import BaseButtonFormServer from '../components/BaseButtonFormServer';
+import BaseFieldServer from '../components/BaseFieldServer';
+import BaseFormServer from '../components/BaseFormServer';
 
 export default function Home() {
     const t = useTranslations('login');
 
-    const [message, setMessage] = useState({
-        text: 'Optmistic Message',
-        sending: false,
-    });
-
-    const [optmisticMessage, addOptimisticMessage] = useOptimistic<typeof message, string>(
-        message,
-        (currentState, newState) => ({
-            ...currentState,
-            text: newState,
-            sending: true,
-        })
-    );
-
-    // TODO: quando lançar o react 19, mudar para useActionState
-    const [state, formAction] = useFormState(loginActionV2, null);
-
-    console.log(state);
     return (
         <Grid
             className="bg-cover bg-no-repeat"
@@ -78,38 +47,44 @@ export default function Home() {
                 <Stack padding={4} gap={4}>
                     <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-                    <form action={formAction}>
+                    <BaseFormServer initialState={null} formAction={loginServerAction}>
                         <Stack gap={4}>
-                            <TextField
-                                data-testid={t('form.input.email.testID')}
-                                label={t('form.input.email.label')}
-                                name={t('form.input.email.name')}
-                                type="email"
-                            />
-                            <TextField
-                                data-testid={t('form.input.password.testID')}
-                                label={t('form.input.password.label')}
-                                name={t('form.input.password.name')}
-                                type="password"
+                            <BaseFieldServer
+                                render={
+                                    <TextField
+                                        data-testid={t('form.input.email.testID')}
+                                        label={t('form.input.email.label')}
+                                        name={t('form.input.email.name')}
+                                        type="email"
+                                    />
+                                }
                             />
 
-                            <Button
-                                data-testid={t('form.button.entrar.testID')}
-                                className="font-bold p-4"
-                                variant="contained"
-                                type="submit"
-                            >
-                                {t('form.button.entrar.label')}
-                            </Button>
+                            <BaseFieldServer
+                                render={
+                                    <TextField
+                                        data-testid={t('form.input.password.testID')}
+                                        label={t('form.input.password.label')}
+                                        name={t('form.input.password.name')}
+                                        type="password"
+                                    />
+                                }
+                            />
 
-                            <p style={{ color: 'white' }}>
-                                {optmisticMessage.text}
-                                {optmisticMessage.sending && <small>Sending...</small>}
-                            </p>
-
-                            <Enviando />
+                            <BaseButtonFormServer
+                                render={
+                                    <Button
+                                        data-testid={t('form.button.entrar.testID')}
+                                        className="font-bold p-4"
+                                        variant="contained"
+                                        type="submit"
+                                    >
+                                        {t('form.button.entrar.label')}
+                                    </Button>
+                                }
+                            />
                         </Stack>
-                    </form>
+                    </BaseFormServer>
                 </Stack>
             </Grid>
         </Grid>

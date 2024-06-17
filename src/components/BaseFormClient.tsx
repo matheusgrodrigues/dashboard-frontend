@@ -17,15 +17,16 @@ import {
     useForm,
 } from 'react-hook-form';
 
-export interface BaseFormRef extends UseFormReturn<FieldValues, any, undefined> {}
+export interface BaseFormClientRef extends UseFormReturn<FieldValues, any, undefined> {}
 
-interface BaseFormProps extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
+interface BaseFormClientProps
+    extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
     validationSchema: yup.ObjectSchema<{ [key: string]: unknown }>;
     children: React.ReactNode;
     onSubmit: SubmitHandler<any>;
 }
 
-const BaseForm: React.ForwardRefRenderFunction<BaseFormRef, BaseFormProps> = (
+const BaseFormClient: React.ForwardRefRenderFunction<BaseFormClientRef, BaseFormClientProps> = (
     { validationSchema, onSubmit, children, ...props },
     ref
 ) => {
@@ -44,10 +45,10 @@ const BaseForm: React.ForwardRefRenderFunction<BaseFormRef, BaseFormProps> = (
     );
 };
 
-BaseForm.displayName = 'BaseForm';
+BaseFormClient.displayName = 'BaseFormClient';
 
 export type { UseFormRegisterReturn, UseFormRegister, SubmitHandler, FieldValues };
 
 export { useFormContext, useForm, useController, Controller };
 
-export default forwardRef(BaseForm);
+export default forwardRef(BaseFormClient);

@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseField from '../components/BaseField';
-import BaseForm, { SubmitHandler } from '../components/BaseForm';
+import BaseField from '../components/BaseFieldClient';
+import BaseFormClient, { SubmitHandler } from '../components/BaseFormClient';
 
 import { getRoute } from '../core/utils/routes';
 import { loginAction } from './actions';
@@ -64,7 +64,7 @@ export default function Home() {
                 <Stack padding={4} gap={4}>
                     <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-                    <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
+                    <BaseFormClient validationSchema={formLoginRules} onSubmit={handleSubmit}>
                         <Stack gap={4}>
                             <BaseField name={t('form.input.email.name')}>
                                 <TextField
@@ -89,7 +89,7 @@ export default function Home() {
                                 {t('form.button.entrar.label')}
                             </Button>
                         </Stack>
-                    </BaseForm>
+                    </BaseFormClient>
                 </Stack>
             </Grid>
         </Grid>
