@@ -7,7 +7,7 @@ import AppRouterContextProvider from '../../../src/core/utils/test-utils/app-rou
 
 import mockPtBR from '../../../src/config/messages/pages/login/pt-BR.json';
 
-import Home from '../../../src/app/page';
+import Home from '../../../src/app/page-temp-server';
 
 describe('Deve renderizar a pagina de login corretamente', () => {
     beforeEach(() => {
