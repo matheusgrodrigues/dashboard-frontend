@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { BaseFormContext } from './BaseForm';
 
@@ -11,46 +11,62 @@ interface BaseFieldProps {
 }
 
 const BaseField: React.FC<BaseFieldProps> = ({ render }) => {
-    const { state } = useContext(BaseFormContext);
+    const { submitButtonRef, state } = useContext(BaseFormContext);
 
-    const getStateErrors = state as BaseFieldError;
+    const [stateErrors, setStateErrors] = useState<BaseFieldError>();
 
     const checkHasError = useCallback(
         () =>
-            getStateErrors &&
-            getStateErrors.errors &&
-            getStateErrors.errors[render.props.name] &&
-            getStateErrors.errors[render.props.name].length > 0,
-        [getStateErrors, render]
+            stateErrors &&
+            stateErrors.errors &&
+            stateErrors.errors[render.props.name] &&
+            stateErrors.errors[render.props.name].length > 0,
+        [stateErrors, render]
     );
 
-    const getHelperText = useCallback(() => {
-        if (checkHasError()) {
-            const message = getStateErrors.errors[render.props.name]?.toString();
-            const firstLetter = message?.toString()[0].toUpperCase();
-            const restString = message?.toString().slice(1, message.length);
+    const handleDisableSubmitButton = useCallback(
+        () =>
+            checkHasError() ? submitButtonRef.current?.setDisabled(true) : submitButtonRef.current?.setDisabled(false),
+        [submitButtonRef, checkHasError]
+    );
 
-            return `${firstLetter}${restString}`;
-        }
-    }, [getStateErrors, checkHasError, render]);
+    const updateErrorMessage: React.KeyboardEventHandler<HTMLInputElement | HTMLDivElement> = useCallback(
+        (e) => {
+            e.preventDefault();
 
-    const updateErrorMessage: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
-        e.preventDefault();
-        e.currentTarget.form?.requestSubmit();
-    }, []);
+            if (stateErrors) {
+                const newErrors = { ...stateErrors };
+                delete newErrors.errors[render.props.name];
+
+                handleDisableSubmitButton();
+
+                setStateErrors(newErrors);
+            }
+        },
+        [handleDisableSubmitButton, stateErrors, render]
+    );
+
+    useEffect(() => {
+        const loadServerErrors = () => {
+            setStateErrors(state as BaseFieldError);
+            handleDisableSubmitButton();
+        };
+
+        loadServerErrors();
+
+        return () => {
+            setStateErrors(undefined);
+        };
+    }, [handleDisableSubmitButton, state]);
 
     return (
         <>
-            {checkHasError()
-                ? React.cloneElement(render, {
-                      ...render.props,
-                      helperText: getHelperText(),
-                      onChange: updateErrorMessage,
-                      error: true,
-                  })
-                : React.cloneElement(render, {
-                      ...render.props,
-                  })}
+            {React.cloneElement(render, {
+                ...render.props,
+                helperText: checkHasError() && stateErrors?.errors[render.props.name],
+                onKeyUp: updateErrorMessage,
+                error: checkHasError(),
+            })}
         </>
     );
 };

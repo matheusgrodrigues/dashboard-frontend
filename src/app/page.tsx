@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslations } from 'next-intl';
 
 import TextField from '@mui/material/TextField';
@@ -12,9 +12,31 @@ import LogoDevIcon from '@mui/icons-material/LogoDev';
 
 import BaseButton from '../components/BaseButton';
 import BaseField from '../components/BaseField';
-import BaseForm from '../components/BaseForm';
+import BaseForm, { BaseFormContext } from '../components/BaseForm';
 
 import { loginAction } from './actions';
+
+const SubmitButton: React.FC = () => {
+    const t = useTranslations('login');
+
+    const { submitButtonRef } = useContext(BaseFormContext);
+
+    return (
+        <BaseButton
+            render={
+                <Button
+                    data-testid={t('form.button.entrar.testID')}
+                    className="font-bold p-4"
+                    variant="contained"
+                    type="submit"
+                >
+                    {t('form.button.entrar.label')}
+                </Button>
+            }
+            ref={submitButtonRef}
+        />
+    );
+};
 
 export default function Home() {
     const t = useTranslations('login');
@@ -70,18 +92,7 @@ export default function Home() {
                                 }
                             />
 
-                            <BaseButton
-                                render={
-                                    <Button
-                                        data-testid={t('form.button.entrar.testID')}
-                                        className="font-bold p-4"
-                                        variant="contained"
-                                        type="submit"
-                                    >
-                                        {t('form.button.entrar.label')}
-                                    </Button>
-                                }
-                            />
+                            <SubmitButton />
                         </Stack>
                     </BaseForm>
                 </Stack>

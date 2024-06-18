@@ -1,7 +1,9 @@
-import { FormHTMLAttributes, createContext } from 'react';
+import { FormHTMLAttributes, createContext, useRef } from 'react';
 import { useFormState } from 'react-dom';
+import { BaseButtonRef } from './BaseButton';
 
 interface BaseFormContextProps {
+    submitButtonRef: React.RefObject<BaseButtonRef>;
     state: unknown;
 }
 
@@ -17,8 +19,10 @@ interface BaseFormProps extends React.DetailedHTMLProps<FormHTMLAttributes<HTMLF
 const BaseForm: React.FC<BaseFormProps> = ({ initialState, formAction, children, permalink, ...props }) => {
     const [state, action] = useFormState(formAction, initialState);
 
+    const submitButtonRef = useRef<BaseButtonRef>(null);
+
     return (
-        <BaseFormContext.Provider value={{ state }}>
+        <BaseFormContext.Provider value={{ submitButtonRef, state }}>
             <form {...props} action={action}>
                 {children}
             </form>
