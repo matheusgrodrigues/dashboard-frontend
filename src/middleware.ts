@@ -2,13 +2,16 @@ import { NextResponse } from 'next/server';
 
 import { auth } from './auth';
 
-import { getRoute } from './core/utils/routes';
-
 export default auth((req) => {
+    const routes = {
+        paginas: '/dashboard/paginas',
+        login: '/',
+    };
+
     if (!req.auth && req.nextUrl.pathname !== '/') {
-        return NextResponse.redirect(new URL(getRoute('login').path, req.url));
+        return NextResponse.redirect(new URL(routes.login, req.url));
     } else if (req.auth && req.nextUrl.pathname === '/') {
-        return NextResponse.redirect(new URL(getRoute('paginas').path, req.url));
+        return NextResponse.redirect(new URL(routes.paginas, req.url));
     }
 });
 export const config = {
