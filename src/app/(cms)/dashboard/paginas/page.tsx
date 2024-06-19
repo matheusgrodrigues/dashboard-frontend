@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 
 import EditIcon from '@mui/icons-material/Edit';
 
-import { SessionProviderContext } from '../../../../core/providers/SessionProvider';
-import { getRoute } from '../../../../core/utils/routes';
+import { SessionProviderContext } from '../../../components/providers/SessionProvider';
+import { getRoute } from '../../../lib/utils/routes';
 
 import { BaseLayoutContent } from '../components/BaseLayout';
 

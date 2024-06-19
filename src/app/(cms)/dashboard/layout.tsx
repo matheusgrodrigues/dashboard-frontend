@@ -4,7 +4,7 @@ import React from 'react';
 
 import { auth } from '../../../auth';
 
-import SessionProvider from '../../../core/providers/SessionProvider';
+import SessionProvider from '../../components/providers/SessionProvider';
 
 import BaseLayout from './components/BaseLayout';
 

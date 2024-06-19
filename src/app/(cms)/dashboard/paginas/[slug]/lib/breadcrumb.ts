@@ -1,5 +1,5 @@
 import { RoutesProps } from '../../../../../../config/routes';
-import registerRoute from '../../../../../../core/utils/routes';
+import registerRoute from '../../../../../lib/utils/routes';
 
 const breadcrumb: RoutesProps[] = [
     registerRoute({

@@ -39,7 +39,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { ThemeProviderContext } from '../../../../core/providers/ThemeProvider';
+import { ThemeProviderContext } from '../../../components/providers/ThemeProvider';
 import { RoutesProps } from '../../../../config/routes';
 import menu from '../../../../config/menu';
 

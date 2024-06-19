@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { RoutesProps } from '../../config/routes';
-import registerRoute from '../utils/routes';
+import { RoutesProps } from '../../../../../config/routes';
+import registerRoute from '../../../../lib/utils/routes';
 
 interface UseRegisterDynamicRouteProps {
     originalRoutes: RoutesProps[];

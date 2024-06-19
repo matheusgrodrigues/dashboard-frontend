@@ -10,7 +10,7 @@ import { BaseLayoutContent } from './components/BaseLayout';
 
 import breadcrumb from './lib/breadcrumb';
 
-import { SessionProviderContext } from '../../../core/providers/SessionProvider';
+import { SessionProviderContext } from '../../components/providers/SessionProvider';
 
 export default function Dashboard() {
     const t = useTranslations('dashboard');
