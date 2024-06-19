@@ -14,7 +14,7 @@ import BaseButton from '../core/components/BaseButton';
 import BaseField from '../core/components/BaseField';
 import BaseForm, { BaseFormContext } from '../core/components/BaseForm';
 
-import { loginAction } from './actions';
+import { loginAction } from './lib/actions';
 
 const SubmitButton: React.FC = () => {
     const t = useTranslations('login');

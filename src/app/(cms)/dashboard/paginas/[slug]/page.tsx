@@ -10,7 +10,7 @@ import useRegisterDynamicBreadcrumbRoute from '../../../../../core/hooks/useRegi
 import breadcrumb from './breadcrumb';
 import { Stack, Typography } from '@mui/material';
 
-import { fakePage } from '../tempData';
+import { fakePage } from '../lib/tempData';
 
 export const dynamicParams = false;
 
