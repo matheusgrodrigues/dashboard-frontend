@@ -1,6 +1,6 @@
 'use server';
 
-import { validateFormRules } from '../../core/utils/actions';
+import { validateFormRules } from './utils/actions';
 
 import formLoginRules from './rules';
 

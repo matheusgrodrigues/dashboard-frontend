@@ -4,13 +4,13 @@ import { AppRouterContext, AppRouterInstance } from 'next/dist/shared/lib/app-ro
 
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
-export interface AppRouterContextProviderProps {
+export interface AppRouterTestProviderProviderProps {
     children: React.ReactNode;
     router: Partial<AppRouterInstance>;
     messages?: AbstractIntlMessages;
 }
 
-const AppRouterContextProvider = ({ children, router, messages }: AppRouterContextProviderProps): React.ReactNode => {
+const AppRouterTestProvider = ({ children, router, messages }: AppRouterTestProviderProviderProps): React.ReactNode => {
     const mockedRouter: AppRouterInstance = {
         prefetch: jest.fn(),
         forward: jest.fn(),
@@ -29,4 +29,4 @@ const AppRouterContextProvider = ({ children, router, messages }: AppRouterConte
     );
 };
 
-export default AppRouterContextProvider;
+export default AppRouterTestProvider;

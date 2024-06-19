@@ -4,7 +4,7 @@ import React, { createContext, useCallback, useLayoutEffect, useMemo } from 'rea
 
 import { ThemeProvider as MUIThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
 
-import getTheme from '../../config/theme';
+import getTheme from '../../../config/theme';
 
 interface ThemeProviderContextProps {
     toggleTheme: () => void;

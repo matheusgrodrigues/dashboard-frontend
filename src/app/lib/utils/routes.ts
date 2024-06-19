@@ -1,4 +1,4 @@
-import routes, { RoutesProps, routesName } from '../../config/routes';
+import routes, { RoutesProps, routesName } from '../../../config/routes';
 
 export const getRoute = (name: routesName) => routes.filter((route) => route.name === name)[0];
 
