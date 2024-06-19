@@ -14,7 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { SessionProviderContext } from '../../../../core/providers/SessionProvider';
 import { getRoute } from '../../../../core/utils/routes';
 
-import { BaseLayoutContent } from '../../../../components/BaseLayout';
+import { BaseLayoutContent } from '../components/BaseLayout';
 
 import breadcrumb from './lib/breadcrumb';
 import { fakePage } from './lib/tempData';

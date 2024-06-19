@@ -10,9 +10,9 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseButton from '../core/components/BaseButton';
-import BaseField from '../core/components/BaseField';
-import BaseForm, { BaseFormContext } from '../core/components/BaseForm';
+import BaseButton from './components/BaseButton';
+import BaseField from './components/BaseField';
+import BaseForm, { BaseFormContext } from './components/BaseForm';
 
 import { loginAction } from './lib/actions';
 
