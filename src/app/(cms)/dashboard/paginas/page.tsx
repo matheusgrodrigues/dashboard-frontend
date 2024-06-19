@@ -16,8 +16,8 @@ import { getRoute } from '../../../../core/utils/routes';
 
 import { BaseLayoutContent } from '../../../../components/BaseLayout';
 
-import breadcrumb from './breadcrumb';
-import { fakePage } from './tempData';
+import breadcrumb from './lib/breadcrumb';
+import { fakePage } from './lib/tempData';
 
 export default function Paginas() {
     const router = useRouter();

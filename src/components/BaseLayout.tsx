@@ -43,7 +43,7 @@ import { ThemeProviderContext } from '../core/providers/ThemeProvider';
 import { RoutesProps } from '../config/routes';
 import menu from '../config/menu';
 
-import { logoutAction } from '../app/(cms)/dashboard/actions';
+import { logoutAction } from '../app/(cms)/dashboard/lib/actions';
 
 const ChangeTheme: React.FC = () => {
     const { toggleTheme } = useContext(ThemeProviderContext);

@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import { BaseLayoutContent } from '../../../components/BaseLayout';
 
-import breadcrumb from './breadcrumb';
+import breadcrumb from './lib/breadcrumb';
 
 import { SessionProviderContext } from '../../../core/providers/SessionProvider';
 

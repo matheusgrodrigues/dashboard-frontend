@@ -1,10 +1,10 @@
 'use server';
 
-import { validateFormRules } from '../core/utils/actions';
+import { validateFormRules } from '../../core/utils/actions';
 
 import formLoginRules from './rules';
 
-import { signIn } from '../auth';
+import { signIn } from '../../auth';
 
 export const loginAction = async (prevState: unknown, queryData: FormData) => {
     const data = Object.fromEntries(queryData);
