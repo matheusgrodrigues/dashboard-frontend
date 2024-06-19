@@ -39,9 +39,11 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { ThemeProviderContext } from '../../core/utils/theme-utils/theme-provider';
-import { RoutesProps } from '../../config/routes';
-import menu from '../../config/menu';
+import { ThemeProviderContext } from '../core/providers/ThemeProvider';
+import { RoutesProps } from '../config/routes';
+import menu from '../config/menu';
+
+import { logoutAction } from '../app/(cms)/dashboard/actions';
 
 const ChangeTheme: React.FC = () => {
     const { toggleTheme } = useContext(ThemeProviderContext);
@@ -55,8 +57,6 @@ const ChangeTheme: React.FC = () => {
 
 const UserMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const router = useRouter();
 
     const t = useTranslations('baseLayout');
 
@@ -90,7 +90,7 @@ const UserMenu: React.FC = () => {
 
                 <Divider />
 
-                <MenuItem className="flex gap-4" onClick={() => router.push('/')}>
+                <MenuItem className="flex gap-4" onClick={() => logoutAction()}>
                     <Typography>{t('userMenu.menuItem.sair')}</Typography>
                 </MenuItem>
             </Menu>

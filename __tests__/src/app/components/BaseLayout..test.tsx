@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 
 import AppRouterContextProvider from '../../../../src/core/utils/test-utils/app-router-provider';
 
-import BaseLayout from '../../../../src/app/components/BaseLayout';
+import BaseLayout from '../../../../src/components/BaseLayout';
 
 import mockPtBR from '../../../../src/config/messages/components/baseLayout/pt-BR.json';
 

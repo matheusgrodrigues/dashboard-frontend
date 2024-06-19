@@ -21,6 +21,12 @@ export interface RoutesProps {
 
 const routes: RoutesProps[] = [
     {
+        displayName: 'Login',
+        name: 'login',
+        path: '/',
+        icon: HomeIcon,
+    },
+    {
         displayName: 'Dashboard',
         name: 'dashboard',
         path: '/dashboard',

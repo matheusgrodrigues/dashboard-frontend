@@ -1,29 +1,32 @@
 'use client';
 
-import { useMemo } from 'react';
-
+import { useContext, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-
 import { useTranslations } from 'next-intl';
 
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 
 import EditIcon from '@mui/icons-material/Edit';
 
-import { BaseLayoutContent } from '../../../../app/components/BaseLayout';
+import { SessionProviderContext } from '../../../../core/providers/SessionProvider';
+import { getRoute } from '../../../../core/utils/routes';
+
+import { BaseLayoutContent } from '../../../../components/BaseLayout';
 
 import breadcrumb from './breadcrumb';
-import { getRoute } from '@/core/utils/routes';
-
 import { fakePage } from './tempData';
 
 export default function Paginas() {
     const router = useRouter();
 
     const t = useTranslations('paginas');
+
+    const { session } = useContext(SessionProviderContext);
+
+    console.log('Paginas', session);
 
     const columns: GridColDef[] = useMemo(
         () => [

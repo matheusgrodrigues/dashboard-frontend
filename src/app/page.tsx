@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useContext } from 'react';
 import { useTranslations } from 'next-intl';
 
 import TextField from '@mui/material/TextField';
@@ -11,18 +10,36 @@ import Grid from '@mui/material/Grid';
 
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 
-import BaseField from './components/BaseField';
-import BaseForm, { FieldValues } from './components/BaseForm';
+import BaseButton from '../core/components/BaseButton';
+import BaseField from '../core/components/BaseField';
+import BaseForm, { BaseFormContext } from '../core/components/BaseForm';
 
-import { getRoute } from '../core/utils/routes';
-import formLoginRules from './rules';
+import { loginAction } from './actions';
 
-export default function Home() {
-    const router = useRouter();
-
+const SubmitButton: React.FC = () => {
     const t = useTranslations('login');
 
-    const handleSubmit: (data: FieldValues) => void = () => router.push(getRoute('paginas').path);
+    const { submitButtonRef } = useContext(BaseFormContext);
+
+    return (
+        <BaseButton
+            render={
+                <Button
+                    data-testid={t('form.button.entrar.testID')}
+                    className="font-bold p-4"
+                    variant="contained"
+                    type="submit"
+                >
+                    {t('form.button.entrar.label')}
+                </Button>
+            }
+            ref={submitButtonRef}
+        />
+    );
+};
+
+export default function LoginPage() {
+    const t = useTranslations('login');
 
     return (
         <Grid
@@ -51,30 +68,31 @@ export default function Home() {
                 <Stack padding={4} gap={4}>
                     <LogoDevIcon className="text-blue-600 dark:text-slate-600 size-16 mx-auto" />
 
-                    <BaseForm validationSchema={formLoginRules} onSubmit={handleSubmit}>
+                    <BaseForm initialState={null} formAction={loginAction}>
                         <Stack gap={4}>
-                            <BaseField name={t('form.input.email.name')}>
-                                <TextField
-                                    data-testid={t('form.input.email.testID')}
-                                    label={t('form.input.email.label')}
-                                    type="email"
-                                />
-                            </BaseField>
-                            <BaseField name={t('form.input.password.name')}>
-                                <TextField
-                                    data-testid={t('form.input.password.testID')}
-                                    label={t('form.input.password.label')}
-                                    type="password"
-                                />
-                            </BaseField>
-                            <Button
-                                data-testid={t('form.button.entrar.testID')}
-                                className="font-bold p-4"
-                                variant="contained"
-                                type="submit"
-                            >
-                                {t('form.button.entrar.label')}
-                            </Button>
+                            <BaseField
+                                render={
+                                    <TextField
+                                        data-testid={t('form.input.email.testID')}
+                                        label={t('form.input.email.label')}
+                                        name={t('form.input.email.name')}
+                                        type="email"
+                                    />
+                                }
+                            />
+
+                            <BaseField
+                                render={
+                                    <TextField
+                                        data-testid={t('form.input.password.testID')}
+                                        label={t('form.input.password.label')}
+                                        name={t('form.input.password.name')}
+                                        type="password"
+                                    />
+                                }
+                            />
+
+                            <SubmitButton />
                         </Stack>
                     </BaseForm>
                 </Stack>
