@@ -11,7 +11,7 @@ import { getMessages } from 'next-intl/server';
 
 import './globals.css';
 
-import ThemeProvider from '../core/utils/theme-utils/theme-provider';
+import ThemeProvider from '../core/providers/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 

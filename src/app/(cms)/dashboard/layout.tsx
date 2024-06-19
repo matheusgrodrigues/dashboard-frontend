@@ -2,6 +2,10 @@ import { Metadata } from 'next';
 
 import React from 'react';
 
+import { auth } from '../../../auth';
+
+import SessionProvider from '../../../core/providers/SessionProvider';
+
 import BaseLayout from '../../../components/BaseLayout';
 
 export const metadata: Metadata = {
@@ -11,6 +15,12 @@ export const metadata: Metadata = {
 interface DashboardLayoutProps {
     children: React.ReactNode;
 }
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
-    return <BaseLayout>{children}</BaseLayout>;
+export default async function DashboardLayout({ children }: DashboardLayoutProps) {
+    const session = await auth();
+
+    return (
+        <SessionProvider session={session}>
+            <BaseLayout>{children}</BaseLayout>
+        </SessionProvider>
+    );
 }
