@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# G-Dashboard 🚀
 
-## Getting Started
+O propósito primário deste dashboard é servir como um projeto modelo e um ponto de partida para o desenvolvimento de novos sistemas de gerenciamento de conteudo (cms) para meus projetos. 
 
-First, run the development server:
+Ele é concebido para oferecer uma estrutura sólida e um conjunto de funcionalidades padrão que podem ser facilmente estendidas e personalizadas para atender às necessidades específicas de diferentes projetos.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ao fornecer um conjunto abrangente de funcionalidades default, o dashboard reduz significativamente o tempo e os recursos necessários para iniciar novos projetos, eliminando a necessidade de começar do zero a cada vez. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ele oferece uma base sólida e consistente, que pode ser adaptada e expandida conforme necessário, permitindo que os esforços se concentrem mais na implementação de recursos exclusivos e menos na infraestrutura básica.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Além disso, o dashboard serve como um ponto central para demonstrar as melhores práticas de desenvolvimento, padrões de design e técnicas de implementação, promovendo a consistência e a eficiência em todo o processo de desenvolvimento. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+-   [Screenshots](#screenshots)
+-   [Tecnologias Utilizadas](#tecnologias-utilizadas)
+    -   [Frontend](#frontend)
+    -   [Bibliotecas](#bibliotecas)
+    -   [Versionamento](#versionamento)
+    -   [Testes](#testes)
+    -   [Prototipação](#prototipacao)
+    -   [Documentação](#documentacao)
+-   [Instruções de Instalação](#instrucoes-de-instalacao)
+-   [Como Usar](#como-usar)
+-   [Contribuição](#contribuicao)
+-   [Licença](#licenca)
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+- Em andamento.
+- 
+## Tecnologias Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Clean Code
+- Clean Achitecture
+  
+### Frontend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   HTML5
+-   CSS3
+-   TypeScript
+-   React/Next.js
 
-## Deploy on Vercel
+### Bibliotecas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-   React Hook Form
+-   MUI
+-   Tailwind
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Infraestrutura
+
+-   Docker
+
+### Testes
+
+-   Jest
+-   React Testing Library
+-   BDD/TDD
+
+### Documentacao
+
+-   Jira
+-   Confluence
+
+## Instrucoes de Instalacao
+
+1. Clone o repositório para sua máquina local usando o seguinte comando:
+
+    > git clone https://github.com/matheusgrodrigues/dashboard-frontend.git
+
+2. Navegue até o diretório do projeto:
+
+    > cd portfolio
+
+3. Inicie um servidor local para visualizar o portfólio.
+
+    > yarn dev ou yarn start
+
+4. Abra o navegador e visualize o portfolio na porta 3000
+    > http://localhost:3000
+
+## Como Usar
+
+Este projeto é simples de usar. Basta acessar as rotas disponíveis que podem ser visualizadas dentro da pasta `app`.
+
+## Contribuicao
+
+Sinta-se a vontade para contribuir enviando um pull request.
+
+## Licenca
+
+MIT License.

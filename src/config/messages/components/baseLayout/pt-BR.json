@@ -1,0 +1,13 @@
+{
+    "baseLayout": {
+        "userMenu": {
+            "menuItem": {
+                "profile": "Profile",
+                "sair": "Sair"
+            }
+        },
+        "drawer": {
+            "name": "Genese"
+        }
+    }
+}
